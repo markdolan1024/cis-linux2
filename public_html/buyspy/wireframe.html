@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="BuySpyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>BuySpy</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/angular-animate.min.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body ng-controller="MainCtrl" id="bg">
+<div class="container-fluid">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">Settings</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="row">
+	
+	<div class="col-md-2">
+		<div class="input-group">
+				<input class="form-control" type="text" placeholder="Search SpyList">
+		</div>
+		<ul class="nav nav-pills nav-stacked bg-success text-muted">
+			<li role="presentation"><a href="#">Item 1 </a></li>
+			<li role="presentation"><a href="#">Item 2 <span class="badge">2</span></a></li>
+			<li role="presentation" ng-repeat="item in spyList"><a href="#">{{item.name}}</a></li>
+		</ul>
+	</div>
+				
+
+	<div class="col-md-10">
+	<div class="row">
+		<div class="col-md-6 col-md-push-4">
+			<img src="img/buyspyHeader2.png">
+		</div>
+		<div class="col-md-6">
+			<button ng-click="spyItem('Dell XPS')" ng-show="canSpy" type="button" class="btn btn-info btn-lg pull-right">
+			<span class="glyphicon glyphicon-star" aria-hidden="true">
+			</span> Spy Item</button>
+		</div>
+	</div>
+
+	<br>
+	<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon" id="threshold-addon">
+				<span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span></span>
+				<input type="number" class="form-control" id="threshold" placeholder="Price Threshold">
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<div class="input-group">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="catDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Category
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="catDropdown">
+						<li><a href="#">Computers</a></li>
+						<li><a href="#">Books</a></li>
+						<li><a href="#">Clothes</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<br>
+
+	<div class="input-group">
+		<span class="input-group-addon" id="search-addon" ng-click="showResults()"> 
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+		<input type="search" class="form-control" id="search" placeholder="Search">
+	</div>
+	<br>
+
+
+	<div class="row">
+		<div class="col-sm-6 col-md-4" ng-repeat="results in searchResults" >
+			<div class="thumbnail">
+				<img ng-src="{{results.img}}" class="img-rounded resultImg">
+				<div class="caption">
+					<h3>{{results.name}}</h3>
+					<p>Vendor: {{results.vendor}}</p>
+					<p>Price: {{results.price | currency}}</p>
+					<a href="#" class="btn btn-primary" role="button" ng-click="removeItem(searchResults.indexOf(results))">Dismiss</a>
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<br>
+
+	<br>
+	<br>
+	
+	</div><!-- end row -->
+	
+</div><!-- end row -->
+</div>
+
+	<script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>
+

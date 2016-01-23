@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Notes</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body id="bg">
+<div class="container-fluid">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="../index.php">Home</a></li>
+					<li><a href="notes_home.html">My Notes</a></li>
+					<li><a href="ionic.html">Ionic Notes</a></li>
+					<li><a href="mac.html">Mac OS X Notes</a></li>
+					<li class="active"><a href="ace.html">ACE Notes</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+		
+	<h1>ACE Notes</h1>
+	<br>
+	<h4>PHP MySQL Notes</h4>
+	<dl>
+		<dt>Insert Into Database</dt>
+		<dd>INSERT INTO table (col1, col2) VALUES ("Value 1", "Value 2");
+		<dd>INSERT INTO table (col2, col1) VALUES ("Value 2", "Value 1");
+		<dd>Just make sure order of columns matches order of values to be inserted</dd>
+		<dt>Update Entry in Database</dt>
+		<dd>UPDATE table SET col2= "Value 2" where id = "2";
+	</dl>
+	<h4>Topics</h4>
+	<ol>
+		<li>Introduction</li>
+		<ol>
+			<li>Role and Scope of Practice for the Personal Trainer</li>
+		</ol>
+		<li>Leadership and Implementation</li>
+		<ol>
+			<li>Principles of Motivation and Adherence</li>
+			<li>Communication and Teaching Techniques</li>
+			<li>Basics of Behavioral Change and Health Psychology</li>
+		</ol>
+	</ol>
+
+	<br>
+	<br>
+	<address>
+		<strong>Mark Elmer Dolan</strong><br>
+		1936 Girard Ave<br>
+		Philadelphia, PA 19130<br>
+		<abbr title="Phone">P:</abbr> (484) 784-7894<br>
+		<a href="mailto:#">mark.dolan@temple.edu</a>
+	</address>
+	
+</div>
+
+	<script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

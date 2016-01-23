@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+  
+        
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+        <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel").panel("close");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel").panel("open");
+				});
+		</script>
+       
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a" id="pageAdmin">
+        
+        		<!-- this div will contain the menu to update the user -->
+        	<div id="updateUserEdit">
+            	
+                
+                <div id="containerUpdateUser">
+                
+                	<div id="headerUpdateUser">
+                    	<div id="leftHeaderUpdate"><a href="javascript:closeUpdateModal()">close</a></div>
+                        <div id="rigthHeaderUpdate"></div>
+                    </div>
+                	
+                   	<div id="linePhoto">
+                        	<div id="leftLinePhoto"><img src="" id="imgUserUpdate"/></div>
+                                <div id="rightLinePhoto">
+                                  <input type="text" id="FirstNameToUpdate" placeholder="First Name" />
+                   				 <input type="text" id="LastNameToUpdate" placeholder="Last Name" />
+                                </div>
+                            
+                        
+                        </div>
+                
+                    <input type="hidden" id="idUserToUpdate" />
+                   
+                    <input type="email" id="EmailToUpdate" placeholder="Email" />
+                    <input type="tel" id="PhoneToUpdate" placeholder="Phone" />
+                    <input type="text" id="TwitterToUpdate" placeholder="Twitter" />
+                    <input type="text" id="FBToUpdate" placeholder="Facebook" />
+                    <select id="searchByRolePanel2">  </select>
+                                        
+                    <button id="buttonUpdateUser">Update Info</button>
+                   
+                </div>
+            	
+	
+            
+            </div>
+        
+        
+          
+                <div data-role="header" data-theme="z" id="HeaderBar" >
+                	<a href="weather.html" data-ajax="false"><img src="Images/Back.png" alt="iconBack"></a>
+                    <a href="#myPanel" data-ajax="false"><img src="Images/searchIcon.png" alt="iconSearch"></a>
+                    <div id="infoUser">
+                    	<p>Admin Teams</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                 <div data-role="content">
+      			
+         			 
+                     
+                     
+   
+             	</div> <!-- this is the end of my content -->
+                
+              
+                <div data-role="footer" data-position="fixed" id="footer">
+               		<div id="containerFooter">
+                    	<div class="membersAdmin leftFooter">
+                        	<div class="contImageFooter"><img src="Images/MemberIcon.png" alt="Register Icon"></div>
+                            <div><p>Members</p></div>
+                        </div>
+                       
+                        <div class="addMemberAdmin leftFooter">
+                        	<div class="contImageFooter"><img src="Images/addMember.png" alt="Register Icon"></div>
+                            <div><p>Add Member</p></div>
+                        </div>
+                         <div class="teamAdmin leftFooter">
+                       	 	<div class="contImageFooter"><img src="Images/TeamIcon.png" alt="Register Icon"></div>
+                            <div><p>Teams</p></div>
+                        </div>
+                        <div class="adminAddTeam leftFooter">
+                       	 	<div class="contImageFooter"><img src="Images/addGroup.png" alt="Register Icon"></div>
+                            <div><p>Add Team</p></div>
+                        </div>
+                        	
+                 	</div>
+                   
+			   </div><!-- /footer -->
+               
+    	
+          </div> <!-- this is the end of my page -->
+     
+   
+     
+       
+    </body>
+</html>
+
+
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/adminTeam.js"></script>

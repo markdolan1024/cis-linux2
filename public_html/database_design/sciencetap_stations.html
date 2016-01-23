@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Sciencetap</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body id="bg">
+<div class="container-fluid">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="../index.php">Home</a></li>
+					<li><a href="home.html">Database Design - Home</a></li>
+					<li class="active"><a href="#">Sciencetap</a></li>
+					<li><a href="buyspy.html">BuySpy</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+		
+	<h1>Sciencetap Database Design</h1>
+	<br>
+	<h4>A working example</h4>
+	<p>
+		A user applies to be part of Sciencetap by contacting the <strong>Project Admin</strong> for the <strong>Project</strong> he is interested in. This can be done through the app, or by directly emailing the project admin.  After approving the person to participate, the project admin creates the user along with their generic information.  The appropriate <strong>site admin</strong> assigns the user to their <strong>Site</strong>.  The user can now collect data at any station belonging to that site, but for station specific information such as a sunlight logger, a form must be created and assigned to that station. Stations are very specific such as the Acoustic Doppler Station at Lat, Lon of Site 1. The <strong>site admin</strong> creates a <strong>form</strong> for each <strong>station</strong> with the information that is needed.  The user locates the <strong>station</strong> at which he will collect data and chooses from the available <strong>forms</strong>. When the form is selected a list of inputs are generated and the required ones must be filled out in order to submit data, some fields may be optional.  The user will always have the option of submitting pictures with notes for stations that are part of sites they belong to.
+	</p>
+	<!-- <h4>Calendars</h4>
+	<p>
+		A calendar exists for every site.  All users assigned to a site can see the sites calendar.  Only site admins can edit calendars such as adding notes, displaying checklists, and setting notification reminders.	
+	</p>	
+-->
+
+	<h2>Key Terms</h2>
+	<dl>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Project</dt></h4>
+		<h4><dd>A project is a logical grouping of related sites</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+
+		<div class="col-md-4">
+		<h4><dt>Site</dt></h4>
+		<h4><dd>A site is an area where stations can be setup to collect data</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Site</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Station</dt></h4>
+		<h4><dd>The exact location where data is collected i.e. bank pins. Unique and belongs to exactly one site</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Station</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+				</tr>
+				<tr>
+					<td>Lat</td>
+				</tr>
+				<tr>
+					<td>Lon</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Form</dt></h4>
+		<h4><dd>A form is the template for data that will be recorded. All stations start out with the "Default Form", which submits pictures and notes.  Forms must be assigned to stations by the site admin to be used</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Station_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Form_Input_Type</dt></h4>
+		<h4><dd>Names the inputs to a form.  Type can either be Text, Number, True/False, or Dropdown</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Input_Type</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Type</td>
+				</tr>
+				<tr>
+					<td>Form_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Data</dt></h4>
+		<h4><dd>The actual data recorded, each record is tied to a station and draws it Lat, Lon from that</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Data</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Form_Input_Type_ID</td>
+				</tr>
+				<tr>
+					<td>Value</td>
+				</tr>
+				<tr>
+					<td>Time</td>
+				</tr>
+				<tr>
+					<td>Submitted_By</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Form_Dropdown_Values</dt></h4>
+		<h4><dd>If the Form_Input_Type Type value is dropdown, then this will contain the list of values in the dropdown</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Dropdown_Values</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Form_Input_Type_ID</td>
+				</tr>
+				<tr>
+					<td>Value</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Category</dt></h4>
+		<h4><dd>Lists the class of information a form is collecting</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Category</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Form_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Site_Users</dt></h4>
+		<h4><dd>Users that can collect data at stations belonging to their site </dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Site_Users</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Project Admin</dt></h4>
+		<h4><dd>User designated with permissions to create projects, create sites, create users, and assign site admins</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project Admin</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Site Admin</dt></h4>
+		<h4><dd>User designated with permissions to create sites, create forms, add forms to a site, create stations, and assign forms to stations</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Site Admin</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Users</dt></h4>
+		<h4><dd>All users</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Users</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>First Name</td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+				</tr>
+				<tr>
+					<td>Password</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+<!--
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Calendar</dt></h4>
+		<h4><dd>Associates a calendar with a site.  All site users can see the calendar, but only site admins can edit calendars</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Calendar</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Calendar_Reminders</dt></h4>
+		<h4><dd>Reminders for a site calendar.  Stop Time is the time the reminder will go off</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Calendar Reminders</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+				<tr>
+					<td>Stop_Time</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+-->
+	</dl>
+
+	<div class="row">
+	<div class="col-md-6">
+	<h3>Project Table</h3>
+	<p>
+		List of Projects with general description
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Beta Testers WVWA</td>
+				<td>Wissahickon Creek</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>TTF Beta Test</td>
+				<td>Tookany / Tacony-Frankford</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-6">
+	<h3>Site Table</h3>
+	<p>
+		This table shows two sites each that belong to project TTF Beta Test(Project_ID 2)
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>WS170</td>
+				<td>Creek Watch Site at WS170</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>WS80</td>
+				<td>Creek Watch Site at WS80</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<h3>Station Table</h3>
+	<p>
+		This table shows two stations that belong to Site WS170 (Site_ID 1).  These can be located on the map via Lat, Lon, and will be color coded the same color to show they are part of the same site
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Lat</th>
+				<th>Lon</th>
+				<th>Site_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Sunlight Logger at WS170</td>
+				<td>First logger as you walk down the stream</td>
+				<td>40.540</td>
+				<td>-75.356</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Acoustic Doppler at WS170</td>
+				<td>Acoustic Doppler next to sunlight logger</td>
+				<td>40.540</td>
+				<td>-75.5</td>
+				<td>1</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="row">
+	<div class="col-md-4">
+	<h3>Form Table</h3>
+	<p>
+		This table lists two forms, the sunlight logger form can only be accessed for Station_ID 1, the sunlight logger station at WS170, the acoustic doppler form can only be accessed by Station_ID 2 
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Station_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Sunlight Logger Form at WS170</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Acoustic Doppler Form at WS170</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Form_Input_Type Table </h3>
+	<p>
+		This table shows two inputs for the Acoustic Doppler form (Form_ID 2).  The first is a number, the second is a dropdown.
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Form_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Turbidity</td>
+				<td>Number</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Conditions</td>
+				<td>Dropdown</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-4">
+	<h3>Form_Dropdown_Values Table </h3>
+	<p>
+		This table shows the values that can be selected for the dropdown "Conditions" Form_Input_Type_ID 2
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Form_Input_Type_ID</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>Sunny</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Light rain</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>Heavy rain</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-6">
+	<h3>Data Table </h3>
+	<p>
+		This table shows the actual data recorded by Mark Dolan User_ID 2, using the Acoustic Doppler Form
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Form_Input_Type_ID</th>
+				<th>Value</th>
+				<th>Time</th>
+				<th>Submitted_By</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>45.5</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Heavy rain</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-6">
+	<h3>Category Table </h3>
+	<p>
+		This table shows that Form_ID's 1 and 2, the sunlight logger form and acoustic doppler are both used to measure erosion
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Form_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Erosion</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Erosion</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-4">
+	<h3>Project_Admin Table</h3>
+	<p>
+		This table shows Laura Toran (User_ID 1) is project admin for Beta Testers WVWA and TTF Beta Test (Project_ID's 1 and 2)
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Site_Admin Table</h3>
+	<p>
+		This table shows Laura Toran (User_ID 1) is site admin for sites WS170(Site_ID 1) and WS80(Site_ID 2) and Mark Dolan is site admin for WS170 (Site_ID 1)
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+				<th>Site_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>1</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Site_Users Table</h3>
+	<p>
+		This table shows Justin Shi (User_ID 3) is a site user for WS170(Site_ID 1), but not a site admin or a project admin, so he can only collect data
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+				<th>Site_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>3</td>
+				<td>1</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<h3>Users Table</h3>
+	<p>
+		All registered users
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First_Name</th>
+				<th>Last_Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Password</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Laura</td>
+				<td>Toran</td>
+				<td>laura.toran@temple.edu</td>
+				<td>555 555-5555</td>
+				<td>Encrypted pass</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Mark</td>
+				<td>Dolan</td>
+				<td>mark.dolan@temple.edu</td>
+				<td>123 456-7890</td>
+				<td>Encrypted pass</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Justin</td>
+				<td>Shi</td>
+				<td>shi@temple.edu</td>
+				<td>987 654-3210</td>
+				<td>Encrypted pass</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2>Putting it all together</h2>
+	<div class="row">
+	<img src="img/Sciencetap_Uses.jpg" class="img-responsive center-block">
+	</div>
+	<br>
+	<ul>
+		<li> Each project has at least one project admin, and at least one site associated with it</li>
+		<li>Each project admin is associated with at least one project </li>
+		<li>Each Site is associated with exactly one project, at least one site admin, at least one site user, at least one user, and at least one station</li>
+		<li>Each site admin is associated with at least one site</li>
+		<li>Each site user is associated with at least one site</li>
+		<li>Each user is associated with 0 to many sites</li>
+		<li>Each station is associated with exactly one site, and at least one form</li>
+		<li>Each form is associated with exactly one station, and at least one form input type, and at least one category</li>
+		<li>Each form input type is associate with exactly one form, and 0 to many form dropdown values and data</li>
+		<li>Each form dropdown value is associated with exactly one form input type</li>
+		<li>Each Data is associated with exactly one form input type</li>
+		<li>Each category is associated with at least one form</li>
+	</ul>
+
+	<br>
+	<br>
+	<address>
+		<strong>Mark Elmer Dolan</strong><br>
+		1936 Girard Ave<br>
+		Philadelphia, PA 19130<br>
+		<abbr title="Phone">P:</abbr> (484) 784-7894<br>
+		<a href="mailto:#">mark.dolan@temple.edu</a>
+	</address>
+	
+</div>
+
+	<script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>
+

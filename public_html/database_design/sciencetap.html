@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Sciencetap</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body id="bg">
+<div class="container-fluid">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="../index.php">Home</a></li>
+					<li><a href="home.html">Database Design - Home</a></li>
+					<li class="active"><a href="#">Sciencetap</a></li>
+					<li><a href="buyspy.html">BuySpy</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+		
+	<h1>Sciencetap Database Design</h1>
+	<br>
+	<h4>A working example</h4>
+	<p>
+		A user applies to be part of Sciencetap by contacting a Super Admin about the Project he is interested in. This can be done through the app, or by directly emailing the super admin.  After approving the person to participate, the super admin creates the user along with their generic information.  The appropriate <strong>project admin</strong> assigns the user to their <strong>Project</strong>.  The user can now collect data at any site belonging to the project, but for specific information such as a sunlight logger, a form must be created and assigned to that project. The <strong>project admin</strong> creates a <strong>form</strong> with the information that is needed, and this form is now visible to the project's users for all sites in that project.  The user locates the <strong>site</strong> at which he will collect data and chooses from the available <strong>forms</strong>. When the form is selected a list of inputs are generated and the required ones must be filled out in order to submit data, some fields may be optional.  Each project always starts out with the "Default Form" which is pictures and notes.
+	</p> 
+
+	<h2>Key Terms</h2>
+	<dl>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Project</dt></h4>
+		<h4><dd>A project is a logical grouping of related sites</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+
+		<div class="col-md-4">
+		<h4><dt>Site</dt></h4>
+		<h4><dd>A site is an area where data is collected</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Site</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+				</tr>
+				<tr>
+					<td>Lat</td>
+				</tr>
+				<tr>
+					<td>Lon</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Form_Library</dt></h4>
+		<h4><dd>The Form Library stores the templates for existing forms.  When users are creating new forms, this gives them the option to copy from an existing form and edit the fields, then save that as a new form</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Library</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Form_ID</td>
+				</tr>
+				<tr>
+					<td>Form_Category_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Form_Category</dt></h4>
+		<h4><dd>This allows us to separate citizen forms from reseracher forms and extend this separation to other categories if need be</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Category</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Form</dt></h4>
+		<h4><dd>A form is the template for data that will be recorded. All projects start with the "Default Form", which submits pictures and notes.  Forms  are created for a project and can be used by all sites belonging to the project.  It must be created by a project admin to be used</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Form_Input_Type</dt></h4>
+		<h4><dd>Names the inputs to a form.  Type can either be Text, Number, True/False, Photos, or Dropdown</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Input_Type</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Type</td>
+				</tr>
+				<tr>
+					<td>Form_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Data</dt></h4>
+		<h4><dd>The actual data recorded, each record is tied to a site and records the Lat, Lon at the time the data is collected</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Data</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Form_Input_Type_ID</td>
+				</tr>
+				<tr>
+					<td>Value</td>
+				</tr>
+				<tr>
+					<td>Site_ID</td>
+				</tr>
+				<tr>
+					<td>Lat</td>
+				</tr>
+				<tr>
+					<td>Lon</td>
+				</tr>
+				<tr>
+					<td>Time</td>
+				</tr>
+				<tr>
+					<td>Submitted_By</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Photos</dt></h4>
+		<h4><dd>Stores the Links to the photos, tied to the Data_ID, where it draws other information from</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Photos</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>URL</td>
+				</tr>
+				<tr>
+					<td>Data_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Form_Dropdown_Values</dt></h4>
+		<h4><dd>If the Form_Input_Type Type value is dropdown, then this will contain the list of values in the dropdown</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Form_Dropdown_Values</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Form_Input_Type_ID</td>
+				</tr>
+				<tr>
+					<td>Value</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Category</dt></h4>
+		<h4><dd>Lists the class of information a form is collecting</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Category</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+				</tr>
+				<tr>
+					<td>Form_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Project_Users</dt></h4>
+		<h4><dd>Users that can collect data at all sites belonging to their project</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project_Users</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-4">
+		<h4><dt>Super Admin</dt></h4>
+		<h4><dd>User designated with permissions to create projects, create users, and assign project admins.</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project Admin</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Project Admin</dt></h4>
+		<h4><dd>User designated with permissions to create sites, create / add forms to a project, assign users to a project</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Project Admin</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>User_ID</td>
+				</tr>
+				<tr>
+					<td>Project_ID</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="col-md-4">
+		<h4><dt>Users</dt></h4>
+		<h4><dd>All users</dd></h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th><h3>Users</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>ID</td>
+				</tr>
+				<tr>
+					<td>First Name</td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+				</tr>
+				<tr>
+					<td>Password</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+	</dl>
+
+	<div class="row">
+	<div class="col-md-4">
+	<h3>Project Table</h3>
+	<p>
+		List of Projects with general description
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Beta Testers WVWA</td>
+				<td>Wissahickon Creek</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>TTF Beta Test</td>
+				<td>Tookany / Tacony-Frankford</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-8">
+	<h3>Site Table</h3>
+	<p>
+		This table shows two sites each that belong to project TTF Beta Test(Project_ID 2)
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Lat</th>
+				<th>Lon</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>WS170</td>
+				<td>Creek Watch Site at WS170</td>
+				<td>40.540</td>
+				<td>-75.356</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>WS80</td>
+				<td>Creek Watch Site at WS80</td>
+				<td>50.540</td>
+				<td>-85.356</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-4">
+	<h3>Form Table</h3>
+	<p>
+		This table lists two forms belonging to project TTF Beta Test (Project_ID 2).  All sites belonging to TTF Beta Test can now use these forms.
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Sunlight Logger Form at WS170</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Acoustic Doppler Form at WS170</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Form_Input_Type Table </h3>
+	<p>
+		This table shows inputs for the Acoustic Doppler form (Form_ID 2).  The first is a number, the second is a dropdown, the last two are the default form which gets appended to every form.
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Form_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Turbidity</td>
+				<td>Number</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Conditions</td>
+				<td>Dropdown</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Photos</td>
+				<td>Photos</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Notes</td>
+				<td>Text</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-4">
+	<h3>Form_Dropdown_Values Table </h3>
+	<p>
+		This table shows the values that can be selected for the dropdown "Conditions" Form_Input_Type_ID 2
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Form_Input_Type_ID</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>Sunny</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Light rain</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>Heavy rain</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-8">
+	<h3>Data Table </h3>
+	<p>
+		This table shows the actual data recorded by Mark Dolan User_ID 2, using the Acoustic Doppler Form at site WS170.  The Value of photos is the number of photos submitted.
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Form_Input_Type_ID</th>
+				<th>Value</th>
+				<th>Site_ID</th>
+				<th>Lat</th>
+				<th>Lon</th>
+				<th>Time</th>
+				<th>Submitted_By</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>45.5</td>
+				<td>1</td>
+				<td>40.53</td>
+				<td>-75.356</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Heavy rain</td>
+				<td>1</td>
+				<td>40.53</td>
+				<td>-75.356</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>3</td>
+				<td>2</td>
+				<td>1</td>
+				<td>40.53</td>
+				<td>-75.356</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>4</td>
+				<td>There was a lot of mud clogging the logger</td>
+				<td>1</td>
+				<td>40.53</td>
+				<td>-75.356</td>
+				<td>11:45 AM EST</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-4">
+	<h3>Photos Table </h3>
+	<p>
+		This table shows the 2 photos submitted with the data of the form.
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>URL</th>
+				<th>Data_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>/image01.jpg</td>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>/image02.jpg</td>
+				<td>3</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-3">
+	<h3>Super_Admin Table</h3>
+	<p>
+		This table shows Laura Toran (User_ID 1) is a super admin 
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Project_Admin Table</h3>
+	<p>
+		This table shows Laura Toran (User_ID 1) is a project admin for projects Beta Testers WVWA and TTF Beta Test and Mark Dolan is project admin for TTF Beta Test (Project_ID 2).
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<div class="col-md-4">
+	<h3>Project_Users Table</h3>
+	<p>
+		This table shows Justin Shi (User_ID 3) can collect data for all sites belonging to Beta Testers WVWA(Project_ID 1).
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User_ID</th>
+				<th>Project_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>2</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>3</td>
+				<td>1</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-md-8">
+	<h3>Users Table</h3>
+	<p>
+		All registered users
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First_Name</th>
+				<th>Last_Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Password</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Laura</td>
+				<td>Toran</td>
+				<td>laura.toran@temple.edu</td>
+				<td>555 555-5555</td>
+				<td>Encrypted pass</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Mark</td>
+				<td>Dolan</td>
+				<td>mark.dolan@temple.edu</td>
+				<td>123 456-7890</td>
+				<td>Encrypted pass</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Justin</td>
+				<td>Shi</td>
+				<td>shi@temple.edu</td>
+				<td>987 654-3210</td>
+				<td>Encrypted pass</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-4">
+	<h3>Category Table </h3>
+	<p>
+		This table shows that Form_ID's 1 and 2, the sunlight logger form and acoustic doppler are both used to measure erosion
+	</p>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Form_ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Erosion</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Erosion</td>
+				<td>2</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+	<h2>Putting it all together</h2>
+	<div class="row">
+	<img src="img/Sciencetap_Uses.jpg" class="img-responsive center-block">
+	</div>
+
+	<ul>
+		<li>A project is a logical grouping of sites</li>
+		<li>Super Admins are the only ones who can create projects, new users, and assign existing users as project admins</li>
+		<li>Forms must be created for each project to be used by the sites in that project, they are not visible outside the project</li>
+		<li>A user must be placed in the Project_Users Table to start collecting data for that project</li>
+		<li>All projects start out with the default form which means project users can always submit photos and notes</li>
+	</ul>
+	<br>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<address>
+		<strong>Mark Elmer Dolan</strong><br>
+		1936 Girard Ave<br>
+		Philadelphia, PA 19130<br>
+		<abbr title="Phone">P:</abbr> (484) 784-7894<br>
+		<a href="mailto:#">mark.dolan@temple.edu</a>
+	</address>
+	
+</div>
+
+	<script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>
+

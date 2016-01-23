@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+            <!-- Owl Carousel Assets -->
+        <link href="css/owl.carousel.css" rel="stylesheet">
+        <link href="css/owl.theme.css" rel="stylesheet">
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+	<script type="text/javascript" src="js/myFunctions.js"></script>
+	<script src="js/map_StreamJson.js"></script>
+	<script src="js/CameraData.js"></script>
+	<script src="js/CameraDataDynamic.js"></script>
+	<script src="js/TouchCarouse/jquery.openCarousel.js"></script>
+     <!--   <script type="text/javascript" src="js/jquery.serializejson.js"></script>
+        <script type="text/javascript" src= src="js/jquery.serializejson.min.js"></script> -->
+<!--        <script type="text/javascript" src="phonegap.js"></script> -->
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+		</script>
+     	<script src="js/TouchCarouse/owl.carousel.js"></script>
+    </head>
+    <body>
+   <div data-role="page" data-theme="a" id="observationsForms">
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert" data-position="fixed">
+                	<a href="data.html" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo">Observations</p>
+                    </div>
+                </div> <!-- this is the end of my header -->
+                <div data-role="content">
+                        <div id="containerObservational">
+                            <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Days since last rainfall:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="DaysRainfalInput"/>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Approximate rainfall:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="text" id="ApproxRainfalInput"/>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Current weather:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="WeatherInput">
+                                       		<option value=""></option>
+                                        	<option value="Clear">Clear</option>
+                                            <option value="Partly cloudy">Partly cloudy</option>
+                                            <option value="Overcast">Overcast</option>
+                                            <option value="Snow">Snow</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                               <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Rain:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="RainTypeInput">
+                                        	<option value=""></option>
+                                        	<option value="None">None</option>
+                                            <option value="Light">Light</option>
+                                            <option value="Steady">Steady</option>
+                                            <option value="Heavy">Heavy</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Water clarity:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="WaterClarityInput">
+                                        	<option value=""></option>
+                                        	<option value="Clear">Clear</option>
+                                            <option value="Slightly cloudy">Slightly cloudy</option>
+                                            <option value="Cloudy">Cloudy</option>
+                                            <option value="Opaque">Opaque</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                            <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Surface Coating:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select name="SurfaceCoatInpt" id="SurfaceCoatInpt" onChange="checkSurface()">
+                                        	<option value=""></option>
+                                        	<option value="None/Clear">None/Clear</option>
+                                            <option value="Foam">Foam</option>
+
+                                            <option value="Scum">Scum</option>
+                                            <option value="Oily">Oily</option> 
+                                            <option value="Other">Other</option>  
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                               <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Odor:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="OdorCoatInpt" onChange="checkOdor()">
+                                        	<option value=""></option>
+                                        	<option value="Normal">Normal</option>
+                                            <option value="Sewage">Sewage</option>
+                                            <option value="Anaerobic">Anaerobic</option>
+                                            <option value="Chemical">Chemical</option>  
+                                            <option value="Petroleum">Petroleum</option> 
+                                            <option value="Other">Other</option> 
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Stream bed color:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="StreamBedColorInput" onChange="checkBedColor()">
+                                        	<option value=""></option>
+                                        	<option value="Orange/Red">Orange/Red</option>
+                                            <option value="Yellow">Yellow</option>
+                                            <option value="Black">Black</option>
+                                            <option value="Brown">Brown</option>
+                                            <option value="Green">Green</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>% Shade:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="ShadeInpt">
+                                        	<option value=""></option>
+                                        	<option value=" < 30 "> -30% </option>
+                                            <option value="30 - 50">30 - 50%</option>
+                                            <option value="50 - 80">50 - 80%</option>
+                                            <option value="+80">+80%</option>  
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Algae cover:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="AlgaeCoverInpt">
+                                       		<option value=""></option>
+                                        	<option value="Rare">Rare</option>
+                                            <option value="Moderate">Moderate</option>
+                                            <option value="Abundant">Abundant</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                          		<!--   
+                                     <div class="lineFormObservations">
+                                            <div class="leftLineFormObservations">
+                                                <label>Algae locations:</label>
+                                            </div> 
+                                            <div class="rightLineFormObservations">
+                                                <select id="AlgaeLocationInpt">
+                                                    <option value=""></option>
+                                                    <option value="None">None</option>
+                                                    <option value="Filamentous">Filamentous</option>
+                                                    <option value="Periphyton">Periphyton</option>
+                                               </select>
+                                            </div>
+                                     </div> 
+                               	-->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Aquatic vegetation:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="AquaticVegetationInpt">
+                                        	<option value=""></option>
+                                        	<option value="None">None</option>
+                                            <option value="Floating">Floating</option>
+                                            <option value="Rooted submerged">Rooted submerged</option>
+                                            <option value="Rooted floating">Rooted floating</option>
+                                            <option value="Rooted emergent">Rooted emergent</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                        	<div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Flow:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<select id="FlowInpt">
+                                        	<option value=""></option>
+                                        	<option value="Slow">Slow</option>
+                                            <option value="Moderate">Moderate</option>
+                                            <option value="Swift">Swift</option>
+                                            <option value="Combination">Combination</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Leaf packs:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="LeafPacks">
+                                               <option value=""></option>
+                                               <option value="None">None</option>
+                                               <option value="Individual leaves">Individual leaves</option>
+                                               <option value="Small leaf packs (5-20 leaves)">Small leaf packs (5-20 leaves)</option>
+                                                <option value="Large leaf clumps (>20 leaves)">Large leaf clumps (>20 leaves)</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Erosion:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="indiNewErosionInput">
+                                               <option value=""></option>
+                                               <option value="No changes">No changes</option>
+                                               <option value="Continued bank erosion">Continued bank erosion</option>
+                                               <option value="New bank erosion">New bank erosion</option>
+                                               <option value="Increased sediment deposition/islands">Increased sediment deposition/islands</option>
+                                               <option value="Decreased sediment deposition/islands">Decreased sediment deposition/islands</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Riparian vegetation:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="RiparianVegetationInput">
+                                               <option value=""></option>
+                                               <option value="No changes">No changes</option>
+                                               <option value="Decreased abundance">Decreased abundance</option>
+                                               <option value="Increased abundance">Increased abundance</option>
+                                               <option value="Change in types">Change in types</option>
+                                               <option value="Fallen trees">Fallen trees</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Animal observations:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="AnimalObservationInput">
+                                               <option value=""></option>
+                                               <option value="None">None</option>
+                                               <option value="Fish">Fish</option>
+                                               <option value="Birds">Birds</option>
+                                               <option value="Insects">Insects</option>
+                                               <option value="Mammals">Mammals</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                   <textarea rows="5" cols="10" placeholder="Describe" id="SamplesTakenInput"></textarea>
+                   <textarea rows="5" cols="10" placeholder="Aditional notes" id="AditionalNotesInput"></textarea>
+             		<hr class="hrResearch" >
+                    	<h1 class="titleFormMeasures">Probe Measurements</h1>
+                    <hr class="hrResearch">
+                     <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Dissolved Oxygen:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="DissolvelOxygenInput" placeholder="mg/L" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+             		 <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>pH:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="pHInput" placeholder="pH" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                     <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Temperature(C&deg;):</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="temperatureInput" placeholder="Temperature C&deg;" />
+                                    </div>
+                      </div><!-- end lineFormObservations -->
+                            <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Conductivity:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations">
+                                    	<input type="text" id="conductivityInput" placeholder="Conductivity" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                           <hr class="hrResearch">  
+                            <div class="lineFormObservations2">
+                                    <div class="leftLineFormObservationsTitle2">
+                                    	<h1 class="titleForm">Physical Measurements</h1>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservations2">
+                                    	  <img src="Images/QuestionMark.png" alt="iconMark" id="PhysicalMeasure" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+             			<hr class="hrResearch">
+                    <div class="lineFormObservationsStream">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Stream width(ft.):</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionStream" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservationsResearch">
+                                    	<div><input type="number" id="StreamWidth1" placeholder="Stream 1" /></div>
+                                        <div><input type="number" id="StreamWidth2" placeholder="Stream 2" /></div>
+                                        <div><input type="number" id="StreamWidth3" placeholder="Stream 3" /></div>
+                                    </div>
+                      </div><!-- end lineFormObservations -->	
+                         <div class="lineFormObservationsTime">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Time of travel (sec):</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionTime" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div class="rightLineFormObservationsResearch">
+                                    	<div><input type="number" id="timeTravel1" placeholder="Time 1" /></div>
+                                        <div><input type="number" id="timeTravel2" placeholder="Time 2" /></div>
+                                        <div><input type="number" id="timeTravel3" placeholder="Time 3" /></div>
+                                    </div>
+                      </div><!-- end lineFormObservations -->	     
+                        <div class="lineFormObservationsDepth">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Depth:</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionDepth" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div id="contDepthMenu">
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc1" placeholder="Loc 1" /></div>
+                                            <div><input type="number" id="Depth1" placeholder="depth 1" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc2" placeholder="Loc 2" /></div>
+                                            <div><input type="number" id="Depth2" placeholder="depth 2" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc3" placeholder="Loc 3" /></div>
+                                            <div><input type="number" id="Depth3" placeholder="depth 3" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc4" placeholder="Loc 4" /></div>
+                                            <div><input type="number" id="Depth4" placeholder="depth 4" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc5" placeholder="Loc 5" /></div>
+                                            <div><input type="number" id="Depth5" placeholder="depth 5" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc6" placeholder="Loc 6" /></div>
+                                            <div><input type="number" id="Depth6" placeholder="depth 6" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc7" placeholder="Loc 7" /></div>
+                                            <div><input type="number" id="Depth7" placeholder="depth 7" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc8" placeholder="Loc 8" /></div>
+                                            <div><input type="number" id="Depth8" placeholder="depth 8" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc9" placeholder="Loc 9" /></div>
+                                            <div><input type="number" id="Depth9" placeholder="depth 9" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc10" placeholder="Loc 10" /></div>
+                                            <div><input type="number" id="Depth10" placeholder="depth 10" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc11" placeholder="Loc 11" /></div>
+                                            <div><input type="number" id="Depth11" placeholder="depth 11" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc12" placeholder="Loc 12" /></div>
+                                            <div><input type="number" id="Depth12" placeholder="depth 12" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc13" placeholder="Loc 13" /></div>
+                                            <div><input type="number" id="Depth13" placeholder="depth 13" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc14" placeholder="Loc 14" /></div>
+                                            <div><input type="number" id="Depth14" placeholder="depth 14" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                   </div> <!-- end contDepthMenu --> 
+                      </div><!-- end lineFormObservations -->	     
+                       <div class="lineFormObservations3">
+                       				<input type="hidden" id="typeObservation"/>
+                                    <input type="hidden" id="ObservationIdToUpdate"/>
+                                    <input type="hidden" id="Site_Id"/>
+                                    <input type="hidden" id="Lat_Site"/>
+                                    <input type="hidden" id="Lon_Site"/>
+                                    <input type="hidden" id="Measurements_Id"/>
+                                    <input type="hidden" id="Physical_Measurements_Id"/>
+                                    <button type="button" id="bntObservation">Submit Observation</button>
+                                    <button type="button" id="bntObservationUpdate">Update Observation</button>
+                      </div><!-- end lineFormObservations -->	       
+                   	</div><!-- this is the end of containerObservational-->
+              </div> <!-- this is the end of my content -->
+          </div> <!-- this is the end of my page -->
+    </body>
+</html>
+<script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		$('#menuPanel2').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+	}
+ </script>

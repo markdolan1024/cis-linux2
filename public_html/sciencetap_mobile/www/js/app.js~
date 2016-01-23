@@ -1,0 +1,1146 @@
+var app = angular.module('ionicApp', ['ionic', 'ui.router', 'ngCordova'])
+
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
+	$stateProvider
+		.state('login',{
+			url: '/login',
+			templateUrl: 'templates/login.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('settings',{
+			url: '/settings',
+			templateUrl: 'templates/settings.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('setPassword',{
+			url: '/setPassword',
+			templateUrl: 'templates/setPassword.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('map',{
+			url: '/map',
+			templateUrl: 'templates/map.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('collect',{
+			url: '/collect',
+			templateUrl: 'templates/collect.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('view',{
+			url: '/view',
+			templateUrl: 'templates/view.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('create_user',{
+			url: '/create_user',
+			templateUrl: 'templates/create_user.html',
+			controller: 'SciencetapCtrl'
+		})
+		.state('reset_password',{
+			url: '/reset_password',
+			templateUrl: 'templates/reset_password.html',
+			controller: 'SciencetapCtrl'
+		})
+	$urlRouterProvider.otherwise('/login')
+})
+
+app.run(function($ionicPlatform, $state) {
+	
+	setTimeout(function(){
+		navigator.splashscreen.hide();
+	}, 1000);
+
+	$ionicPlatform.ready(function() {
+		if(window.cordova && window.cordova.plugins.Keyboard) {
+		     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+		}
+		if(window.StatusBar) {
+		     StatusBar.styleDefault();
+		}
+		var loggedInUser = window.localStorage.getItem('loggedInUser');
+		if(loggedInUser != null){
+			$state.go('settings');	
+		}
+	});
+})
+
+app.controller('SciencetapCtrl', function($scope, $ionicPopup, $state, $cordovaGeolocation, $ionicLoading, $compile, $ionicModal, $ionicHistory, $http, $ionicSlideBoxDelegate, Camera, LoginService, $ionicLoading, $ionicScrollDelegate){
+	$scope.data = {};
+	$scope.newUserFirstName = '';
+	$scope.newUserLastName = '';
+	$scope.newUserEmail = '';
+	$scope.newUserPhone = '';
+	$scope.resetEmail = '';
+	$scope.observationData = [];
+	$scope.loginDisabled = false;
+	$scope.showSpinner = function(){
+		$ionicLoading.show({
+			template: '<ion-spinner icon="spiral"></ion-spinner>'
+		});
+	};
+	$scope.hideSpinner = function(){
+		$ionicLoading.hide();
+	};
+	$scope.scrollTop = function(){
+		$ionicScrollDelegate.scrollTop();
+	};
+	$scope.createUser = function(){
+		$state.go('create_user');
+	}
+	$scope.openResetPassword = function(){
+		$state.go('reset_password');
+	}
+	$scope.login = function(){
+		LoginService.loginUser($scope.data.username, $scope.data.password, $scope.projects).success(function(data){
+			$scope.loginDisabled = true;
+			var request = $http({
+			    method: "post",
+			    url: 'http://sciencetap.us/ionic/login.php',
+			    data:{
+				emailLogin: $scope.data.username,
+				passLogin: $scope.data.password
+			    }
+			});
+			request.success(function(data){
+				if (data.Status == 'Success'){
+					window.localStorage.setItem("userId", data.userId);
+					window.localStorage.setItem("firstName", data.firstName);
+					window.localStorage.setItem("lastName", data.lastName);
+					window.localStorage.setItem("email", data.email);
+					window.localStorage.setItem("phone", data.phone);
+					if(data.superAdmin === undefined){
+						if(data.projectAdmin === undefined){
+							window.localStorage.setItem("role", 'projectUser');
+						}else{
+							window.localStorage.setItem("role", 'projectAdmin');
+						}	
+					}else{
+						window.localStorage.setItem("role", 'superAdmin');
+					}
+					if(data.Message === undefined){
+						window.localStorage.setItem("message", '');
+					}else{
+						window.localStorage.setItem("message", data.Message);
+					}
+					window.localStorage.setItem('loggedInUser', true);
+					for(var i = 0; i < data.projects.length; i++){
+						$scope.projects.push(
+						{
+						    name: data.projects[i].name,
+						    id: data.projects[i].id
+						}
+						);
+					}
+					$scope.hideSpinner();
+					$state.go('settings');
+				}else{
+					$scope.hideSpinner();
+					window.localStorage.removeItem('loggedInUser');
+					var alertPopup = $ionicPopup.alert({
+					    title: 'Login failed',
+					    template: 'Please check your credentials'
+					});
+					$scope.loginDisabled = false;
+				}
+			});
+		}).error(function(data){
+			$scope.hideSpinner();
+			var alertPopup = $ionicPopup.alert({
+			    title: 'Login failed',
+			    template: 'Please check your credentials'
+			});
+			$scope.loginDisabled = false;
+		});
+	}
+	$scope.user = {};
+	$scope.user.firstName = window.localStorage.getItem("firstName");
+	$scope.user.role = window.localStorage.getItem("role");
+	$scope.user.email = window.localStorage.getItem("email");
+	$scope.user.phone = window.localStorage.getItem("phone");
+	$scope.user.id = window.localStorage.getItem("userId");
+	$scope.user.lastName = window.localStorage.getItem("lastName");
+	$scope.message = window.localStorage.getItem("message");
+
+	$scope.projects = [];
+	$scope.sites = [];
+	$scope.forms = [];
+	$scope.form_inputs= [];
+	$scope.formSelected = false;
+	$scope.dropdowns = [];
+	$scope.observations = [];
+	$scope.data = [];
+	$scope.images = [];
+	$scope.observationObjects = [{
+		projectName : 'None',
+		siteName : 'None',
+		formName : 'None'
+	}];
+
+$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+	console.log(toState);
+	console.log(fromState);
+	window.localStorage.setItem("toState", toState.url);
+});
+	$scope.toState = window.localStorage.getItem("toState");
+	if($scope.toState != null && $scope.toState == "/collect"){
+		var request = $http({
+		    method: "post",
+		    url: 'http://sciencetap.us/ionic/getCollectData.php',
+		    data:{
+			userId: $scope.user.id
+		    }
+		});
+		request.success(function(data){
+			console.log(data);
+			if (data.Status == 'Success'){
+				for(var i = 0; i < data.projects.length; i++){
+					$scope.projects.push(
+					{
+					    name: data.projects[i].name,
+					    id: data.projects[i].id
+					}
+					);
+				}
+				for(var i = 0; i < data.sites.length; i++){
+					$scope.sites.push(
+					{
+					    site_name: data.sites[i].site_name,
+					    site_id: data.sites[i].site_id,
+					    project_id: data.sites[i].project_id
+					}
+					);
+				}
+				for(var i = 0; i < data.forms.length; i++){
+					$scope.forms.push(
+					{
+						name:  data.forms[i].form_name,
+						id: data.forms[i].form_id,
+						description: data.forms[i].form_description,
+						project_id: data.forms[i].project_id,
+						fields: []
+					}
+					);
+				}
+				for(i = 0; i < data.form_inputs.length; i++){
+					$scope.form_inputs.push(
+					{
+					    name: data.form_inputs[i].form_input_name,
+					    fieldID: data.form_inputs[i].form_input_id,
+					    formID: data.form_inputs[i].form_id,
+						input: '',
+						form_input_type: data.form_inputs[i].form_input_type
+					}
+					);
+				}
+				for(i = 0; i < $scope.form_inputs.length; i++){
+				    for(var j = 0; j < $scope.forms.length; j++){
+					if($scope.forms[j].id == $scope.form_inputs[i].formID){
+					    $scope.forms[j].fields.push($scope.form_inputs[i]);
+					}
+				    }
+				}
+				for(i = 0; i < data.dropdowns.length; i++){
+					$scope.dropdowns.push(
+					{
+					    dropdown_value: data.dropdowns[i].dropdown_value,
+					    form_input_id: data.dropdowns[i].form_input_id
+					}
+					);
+				}
+			
+			}
+		});
+	}
+	if($scope.toState != null && $scope.toState == "/view"){
+		$scope.showSpinner();
+		var request = $http({
+		    method: "post",
+		    url: 'http://sciencetap.us/ionic/getViewData.php',
+		    data:{
+			userId: $scope.user.id
+		    }
+		});
+		request.success(function(data){
+			console.log(data);
+			if (data.Status == 'Success'){
+				for(var i = 0; i < data.projects.length; i++){
+					$scope.projects.push(
+					{
+					    name: data.projects[i].name,
+					    id: data.projects[i].id
+					}
+					);
+				}
+				for(var i = 0; i < data.sites.length; i++){
+					$scope.sites.push(
+					{
+					    site_name: data.sites[i].site_name,
+					    site_id: data.sites[i].site_id,
+					    project_id: data.sites[i].project_id
+					}
+					);
+				}
+				for(var i = 0; i < data.forms.length; i++){
+					$scope.forms.push(
+					{
+						name:  data.forms[i].form_name,
+						id: data.forms[i].form_id,
+						description: data.forms[i].form_description,
+						project_id: data.forms[i].project_id,
+						fields: []
+					}
+					);
+				}
+				for(i = 0; i < data.form_inputs.length; i++){
+					$scope.form_inputs.push(
+					{
+					    name: data.form_inputs[i].form_input_name,
+					    fieldID: data.form_inputs[i].form_input_id,
+					    formID: data.form_inputs[i].form_id,
+						input: '',
+						form_input_type: data.form_inputs[i].form_input_type
+					}
+					);
+				}
+				for(i = 0; i < $scope.form_inputs.length; i++){
+				    for(var j = 0; j < $scope.forms.length; j++){
+					if($scope.forms[j].id == $scope.form_inputs[i].formID){
+					    $scope.forms[j].fields.push($scope.form_inputs[i]);
+					}
+				    }
+				}
+				for(var i = 0; i < data.observations.length; i++){
+					$scope.observations.push(
+					{
+					    observation_id : data.observations[i].observation_id,
+					    form_id : data.observations[i].form_id,
+					    site_id : data.observations[i].site_id,
+					    project_id : data.observations[i].project_id,
+					    observation_time_created: data.observations[i].observation_time_created,
+					    user_id : data.observations[i].user_id
+					}
+					);
+				}
+				for(var i = 0; i < data.data.length; i++){
+					$scope.data.push(
+					{
+					    data_id : data.data[i].data_id,
+					    form_input_id : data.data[i].form_input_id,
+					    data_value : data.data[i].data_value,
+					    observation_id : data.data[i].observation_id
+					}
+					);
+				}
+				for(var i = 0; i < data.images.length; i++){
+					$scope.images.push(
+					{
+					    image_id : data.images[i].image_id,
+					    link : 'http://sciencetap.us/' + data.images[i].link,
+					    image_name: data.images[i].image_name,
+					    observation_id : data.images[i].observation_id
+					}
+					);
+				}
+				for(var i = 0; i < $scope.data.length; i++){
+					var field = '';
+					for(var j = 0; j < $scope.form_inputs.length; j++){
+						if($scope.data[i].form_input_id == $scope.form_inputs[j].fieldID){
+							field = $scope.form_inputs[j].name;
+						}
+					}
+					$scope.observationData.push({
+						field : field,
+						value : $scope.data[i].data_value,
+						observation_id : $scope.data[i].observation_id
+					});	
+				}
+				buildObservationObject();
+				console.log($scope.observations);
+				$scope.hideSpinner();
+			}
+		});
+	}
+
+	var options = {timeout: 10000, enableHighAccuracy: true};
+	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+		var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var mapOptions = {
+			center: latLng,
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		$scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	}, function(error){
+		console.log("Could not get location");
+	});
+
+	/*
+	var map;
+	var initMap = function(){
+		var myLatLng = {lat: 39.9808732, lng: -75.1566633};
+		  map = new google.maps.Map(document.getElementById('map'), {
+		    center: myLatLng,
+		    zoom: 12
+		  });
+		  map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+		 var infoWindowL = new google.maps.InfoWindow({map: map});
+		// Try HTML5 geolocation.
+		  if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition(function(position) {
+		      var pos = {
+			lat: position.coords.latitude,
+			lng: position.coords.longitude
+		      };
+		      infoWindowL.setPosition(pos);
+		      infoWindowL.setContent('Location found.');
+		      map.setCenter(pos);
+		    }, function() {
+		      handleLocationError(true, infoWindowL, map.getCenter());
+		    });
+		  } else {
+		    // Browser doesn't support Geolocation
+		    handleLocationError(false, infoWindowL, map.getCenter());
+		  }
+
+		  var contentString = '<div id="content">'+
+		      '<div id="siteNotice">'+
+		      '</div>'+
+		      '<h1 id="firstHeading" class="firstHeading">Demo Site</h1>'+
+		      '<div id="bodyContent">'+
+		      '<p><b>Test</b>,Demo content goes in here</p>'+
+		      '<p>Site document: <Link></Link>, <a href="http://www.sciencetap.us/">sciencetap Home</a></p>'+
+		      '</div>'+
+		      '</div>';
+
+		  var infowindow = new google.maps.InfoWindow({
+		    content: contentString,
+		    maxWidth: 200
+		  });
+
+		  var marker = new google.maps.Marker({
+		    position: myLatLng,
+		    map: map,
+		    title: 'Demo (Test Site)'
+		  });
+		  marker.addListener('click', function() {
+		    infowindow.open(map, marker);
+		  });
+		  layer = new google.maps.FusionTablesLayer({
+		    query: {
+		      select: 'geometry',
+		      from: '1_kb24whPAZttu2FPYLAFPUAUb8f6PNnSUL48TzX7'
+		    },
+		   options: {
+			styleId: 3,
+			templateId: 4,
+		    strokeWeight: 3 
+		      }
+		  
+		  });
+		  layer.setMap(map);
+	}
+	window.initMap = initMap;
+
+	 var handleLocationError = function(browserHasGeolocation, infoWindow, pos) {
+	  infoWindowL.setPosition(pos);
+	  infoWindowL.setContent(browserHasGeolocation ?
+				'Error: The Geolocation service failed.' :
+				'Error: Your browser doesn\'t support geolocation.');
+	}
+*/
+
+	var buildObservationObject = function(){
+		$scope.observationObjects = [];
+		for(i = 0; i < $scope.observations.length; i++){
+			var projectName = '';
+			var siteName = '';
+			var formName = '';
+			var data = [];
+			var images = [];
+			var formInputs = [];
+			var time = $scope.observations[i].observation_time_created;
+			for(j = 0; j < $scope.projects.length; j++){
+				if($scope.observations[i].project_id == $scope.projects[j].id){
+					projectName = $scope.projects[j].name;
+				}
+			}
+			for(j = 0; j < $scope.sites.length; j++){
+				if($scope.observations[i].site_id == $scope.sites[j].site_id){
+					siteName = $scope.sites[j].site_name;
+				}
+			}
+			for(j = 0; j < $scope.forms.length; j++){
+				if($scope.observations[i].form_id == $scope.forms[j].id){
+					formName = $scope.forms[j].name;
+				}
+			}
+			for(j = 0; j < $scope.observationData.length; j++){
+				if($scope.observations[i].observation_id == $scope.observationData[j].observation_id){
+					data.push($scope.observationData[j]);
+				}
+			}
+			for(j = 0; j < $scope.images.length; j++){
+				if($scope.observations[i].observation_id == $scope.images[j].observation_id){
+					images.push($scope.images[j]);
+				}
+			}
+			$scope.observationObjects.push({
+				projectName : projectName,
+				siteName : siteName,
+				formName : formName,
+				data : data,
+				images : images,
+				time : time
+			});
+		}
+		console.log($scope.observationObjects);
+	};
+	$scope.selectedObservation = '';
+	$scope.setObservationObject = function(obj){
+		$scope.selectedObservation = obj;
+	}
+	$scope.refresh = function(){
+		$scope.selectedProject = noProject; 
+		$scope.selectedSite = noSite; 
+		$scope.selectedForm = noForm; 
+		$scope.images = [];
+		clearFormInputs();
+	};
+	var clearFormInputs = function(){
+		for(i = 0; i < $scope.forms.length; i++){
+			for(j = 0; j < $scope.forms[i].fields.length; j++){
+				$scope.forms[i].fields[j].input = '';
+			}
+		}
+	}
+
+	var noProject = {
+		name: 'Select a Project',
+		id: 0
+	};
+
+	var noSite = {
+		site_name: 'Select a Site',
+		site_id: 0
+	};
+
+	var noForm = {
+            name:  'Select a Form (Optional)',
+            id: '0',
+            fields: []
+	};
+
+	var noDropdown = {
+		dropdown_value: 'none',
+		form_input_id: '0'
+	}
+		
+
+        $scope.selectedProject = noProject; 
+        $scope.selectedSite = noSite; 
+        $scope.selectedForm = noForm; 
+        $scope.selectedDropdown = noDropdown; 
+
+        $scope.selectProject = function(project){
+            $scope.selectedProject = project;
+        }
+        
+        $scope.selectSite = function(site){
+            $scope.selectedSite = site;
+        }
+
+	$scope.getDropdown = function(id){
+		console.log(id);
+		$scope.selectedDropdown = []; 
+		for(i = 0; i < $scope.dropdowns.length; i++){
+			if($scope.dropdowns[i].form_input_id == id){
+				$scope.selectedDropdown.push($scope.dropdowns[i]);
+			}
+		}
+		console.log($scope.selectedDropdown);
+	}
+
+	$scope.dropdownInput = function(value, id){
+		console.log(value);
+		console.log(id);
+		for(i = 0; i < $scope.selectedForm.fields.length; i++){
+			if($scope.selectedForm.fields[i].fieldID == id){
+				$scope.selectedForm.fields[i].input = value;
+			}
+		}
+		console.log($scope.selectedForm);
+	}
+
+        $scope.selectDropdown= function(dropdown){
+            $scope.selectedDropdown = dropdown;
+        }
+            
+        $scope.selectForm = function(form){
+            $scope.selectedForm = form;
+            $scope.formSelected = true;
+            console.log($scope.selectedForm);
+        }
+
+	var noProjectSelectedPopup = function(){
+		var popup = $ionicPopup.alert({
+			title: 'No Project Selected',
+			template: 'A project must be selected'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var submitSuccessPopup = function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data submitted successfully'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var submitNoSuccessPopup = function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data was not submitted successfully'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var noDataEnteredPopup = function(){
+		var popup = $ionicPopup.alert({
+			title: 'A required field was not entered'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var resetPasswordSubmitSuccess = function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data Submitted Successfully',
+			template: 'An email has been sent with the new password'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var submitCreateUserSuccess = function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data Submitted Successfully',
+			template: 'A request has been put in to create the account.  You will be notified via email when the account is created'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var submitCreateUserFailure= function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data Not Submitted Successfully',
+			template: 'The request could not be processed at this time'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var resetPasswordSubmitFailure= function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data Not Submitted Successfully',
+			template: 'No Sciencetap account has been created with that email address'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var submitDataFailure = function(){
+		var popup = $ionicPopup.alert({
+			title: 'Data Not Submitted Successfully',
+			template: 'The data upload could not be processed at this time.'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	var noSubmitPopup = function(){
+		var popup = $ionicPopup.alert({
+			title: 'No data to submit'
+		});
+		popup.then(function(res){
+			console.log("alert popup closed");
+		});
+	};
+	$scope.resetPassword = function(){
+		$scope.showSpinner();
+		console.log($scope.resetEmail);
+		if($scope.resetEmail == ""){
+			$scope.hideSpinner();
+			noDataEnteredPopup();
+			return;
+		}
+		var uploadData = {
+			email : $scope.resetEmail
+		};
+		var request = $http({
+		    method: "post",
+		    url: 'http://sciencetap.us/ionic/resetPassword.php',
+		    data:{
+			uploadData: uploadData 
+		    }
+		});
+		request.success(function(data){
+			console.log(data);
+			if(data.Status == 'Success'){
+				setTimeout(function(){
+					$scope.hideSpinner();
+					resetPasswordSubmitSuccess();
+				}, 1000);
+				$state.go('login');
+			}else{
+				setTimeout(function(){
+					$scope.hideSpinner();
+					resetPasswordSubmitFailure();
+				}, 1000);
+				$state.go('login');
+			}
+		});
+		request.error(function(data){
+			console.log(data);
+			setTimeout(function(){
+				$scope.hideSpinner();
+				resetPasswordSubmitFailure();
+			}, 1000);
+			$state.go('login');
+		});
+	}
+	$scope.submitNewUser = function(){
+		$scope.showSpinner();
+		console.log($scope.newUserFirstName);
+		console.log($scope.newUserLastName);
+		console.log($scope.newUserEmail);
+		if($scope.newUserFirstName == "" || $scope.newUserLastName == "" || $scope.newUserEmail == ""){
+			$scope.hideSpinner();
+			noDataEnteredPopup();
+			return;
+		}
+		var uploadData = {
+			first_name : $scope.newUserFirstName,
+			last_name : $scope.newUserLastName,
+			email : $scope.newUserEmail,
+			phone : $scope.newUserPhone
+		};
+		var request = $http({
+		    method: "post",
+		    url: 'http://sciencetap.us/ionic/createNewUser.php',
+		    data:{
+			uploadData: uploadData 
+		    }
+		});
+		request.success(function(data){
+			console.log(data);
+			setTimeout(function(){
+				$scope.hideSpinner();
+				submitCreateUserSuccess();
+			}, 1000);
+			$state.go('login');
+		});
+		request.error(function(data){
+			console.log(data);
+			setTimeout(function(){
+				$scope.hideSpinner();
+				submitCreateUserFailure();
+			}, 1000);
+			$state.go('login');
+		});
+	}
+
+	$scope.submitData = function(){
+		$scope.showSpinner();
+		if($scope.selectedProject.id == "0"){
+			$scope.hideSpinner();
+			noProjectSelectedPopup();
+			return;
+		}
+		console.log($scope.selectedForm);
+		if($scope.selectedForm.id != '0'){
+			for(i = 0; i < $scope.selectedForm.fields.length; i++){
+				if($scope.selectedForm.fields[i].form_input_type == 'CheckBox'){
+					;
+				}else if($scope.selectedForm.fields[i].input == null || $scope.selectedForm.fields[i].input == ''){
+					$scope.hideSpinner();
+					noDataEnteredPopup();
+					return;
+				}
+			}
+			var uploadData = {
+			project_id: $scope.selectedProject.id,
+			site_id: $scope.selectedSite.site_id,
+			user_id: $scope.user.id,
+			form: $scope.selectedForm
+			};
+			var request = $http({
+			    method: "post",
+			    url: 'http://sciencetap.us/ionic/uploadData.php',
+			    data:{
+				uploadData: uploadData 
+			    }
+			});
+			request.success(function(data){
+				$scope.observationID = data.slice(1, -1);
+				if($scope.images.length > 0){
+					$scope.send();
+				}else{
+					setTimeout(function(){
+						$scope.scrollTop();
+						$scope.refresh();
+						$scope.hideSpinner();
+						submitSuccessPopup();
+					}, 1000);
+				}
+			});
+		}else if($scope.images.length > 0){
+			var uploadData = {
+				project_id: $scope.selectedProject.id,
+				site_id: $scope.selectedSite.site_id,
+				user_id: $scope.user.id
+			};
+			var request = $http({
+			    method: "post",
+			    url: 'http://sciencetap.us/ionic/imageObservation.php',
+			    data:{
+				uploadData: uploadData 
+			    }
+			});
+			request.success(function(data){
+				$scope.observationID = data.slice(1, -1);
+				$scope.send();
+			});
+		}else{
+			setTimeout(function(){
+				$scope.hideSpinner();
+				noSubmitPopup();
+				$scope.scrollTop();
+				$scope.refresh();
+			}, 1000);
+		}
+	}
+
+	$scope.password = '';
+	$scope.confirmPassword = '';
+
+	$scope.images = [];
+	$scope.fileURI;
+	$scope.imageName;
+	$scope.showImagesItem = $scope.images.length;
+	$scope.observationID = 0;
+
+	$scope.getPhoto = function() {
+		var options = {
+			quality: 50,
+			destinationType: navigator.camera.DestinationType.FILE_URI,
+			sourceType: 1,
+			encodingType: 0
+		}
+		Camera.getPicture(options).then(function(FILE_URI){
+			console.log(FILE_URI);
+			$scope.fileURI = FILE_URI;
+		       $scope.openImageNameModal();
+		}, function(err){
+			console.log("failed" + err);
+		});
+
+	}
+
+	$scope.send = function(){
+		for(var i = 0; i < $scope.images.length; i++){
+			var myImg = $scope.images[i].fileURI;
+			var options = new FileUploadOptions();
+			options.fileKey = "post";
+			options.mimeType = "image/jpeg";
+			options.chunkedMode = false;
+			var params = {};
+			params.imageName = $scope.images[i].imageName;
+			params.project_id = $scope.selectedProject.id;
+			params.site_id = $scope.selectedSite.site_id;
+			params.user_id = $scope.user.id;
+			params.observation_id = $scope.observationID;
+			options.params = params;
+			var ft = new FileTransfer();
+			ft.upload(myImg, encodeURI('http://sciencetap.us/ionic/uploadImages.php'), onUploadSuccess, onUploadFail, options);
+		}
+	}
+
+	var onUploadSuccess = function(r){
+		console.log("Code =" + r.responseCode);
+		console.log("Response = " + r.response);
+		console.log("Sent = " + r.bytesSent);
+		setTimeout(function(){
+			$scope.hideSpinner();
+			submitSuccessPopup();
+			$scope.scrollTop();
+			$scope.refresh();
+		}, 1000);
+	}
+	var onUploadFail = function(error){
+		console.log("upload error source " + error.source);
+		console.log("upload error target " + error.target);
+		setTimeout(function(){
+			$scope.hideSpinner();
+			submitDataFailure();
+			$scope.scrollTop();
+		}, 1000);
+	}
+    $scope.removeImage = function(){
+        $scope.images.splice($ionicSlideBoxDelegate.currentIndex(),1);
+        $ionicSlideBoxDelegate.update();
+        $ionicSlideBoxDelegate.slide(0);
+        console.log($ionicSlideBoxDelegate.currentIndex());
+    }
+        $scope.addData = function(num, text){
+            console.log(num);
+            console.log(text);
+            $scope.selectedForm.fields.push(
+                {
+                            name: text,
+                            fieldID: num,
+                            formID: '-1'
+                }
+            );
+        };
+
+	$scope.logout = function(){
+		window.localStorage.removeItem('loggedInUser');
+		$state.go('login');
+		$scope.closePopover();
+	}
+
+	//$scope.setPassword = function(){ $state.go('setPassword'); }
+	//$scope.updatePassword = function(){ $state.go('settings'); }
+	$scope.goBack = function(){ $ionicHistory.goBack(); }
+
+        
+               $ionicModal.fromTemplateUrl('templates/picture_slide.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.pictureModal = modal;
+                   });
+               
+               $scope.openPictureModal = function() {
+                   $scope.pictureModal.show();
+               };
+               
+               $scope.closePictureModal = function() {
+                   $scope.pictureModal.hide();
+               };
+
+               $ionicModal.fromTemplateUrl('templates/view_gallery.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.viewGalleryModal= modal;
+                   });
+               
+               $scope.openViewGalleryModal= function() {
+				   $ionicSlideBoxDelegate.slide(0);
+                   $scope.viewGalleryModal.show();
+               };
+               
+               $scope.closeViewGalleryModal= function() {
+                   $scope.viewGalleryModal.hide();
+               };
+               
+               
+               $ionicModal.fromTemplateUrl('templates/collect_form.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.formsModal = modal;
+                   });
+               
+               $scope.openFormsModal = function() {
+                   $scope.formsModal.show();
+               };
+               
+               $scope.closeFormsModal = function() {
+                   $scope.formsModal.hide();
+               };
+               
+               $ionicModal.fromTemplateUrl('templates/collect_project.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.projectModal = modal;
+                   });
+               
+               $scope.openProjectModal = function() {
+                   $scope.projectModal.show();
+               };
+               
+               $scope.closeProjectModal = function() {
+                   $scope.projectModal.hide();
+               };
+               
+               
+               $ionicModal.fromTemplateUrl('templates/collect_site.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.sitesModal = modal;
+                   });
+               
+               $scope.openSitesModal = function() {
+                   $scope.sitesModal.show();
+               };
+               
+               $scope.closeSitesModal = function() {
+                   $scope.sitesModal.hide();
+               };
+
+               $ionicModal.fromTemplateUrl('templates/view_observation.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up',
+			observationObject : $scope.selectedObservation
+                   }).then(function(modal) {
+                           $scope.observationModal = modal;
+                   });
+               
+               $scope.openObservationModal = function() {
+                   $scope.observationModal.show();
+               };
+               
+               $scope.closeObservationModal = function() {
+                   $scope.observationModal.hide();
+               };
+
+               $ionicModal.fromTemplateUrl('templates/collect_dropdown.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up',
+			dropdowns: $scope.dropdowns 
+                   }).then(function(modal) {
+                           $scope.dropdownModal = modal;
+                   });
+               
+               $scope.openDropdownModal = function() {
+                   $scope.dropdownModal.show();
+			console.log("firing");
+               };
+               
+               $scope.closeDropdownModal = function() {
+                   $scope.dropdownModal.hide();
+               };
+
+               $ionicModal.fromTemplateUrl('templates/collect_imageName.html', {
+                       scope: $scope,
+                       animation: 'slide-in-up'
+                   }).then(function(modal) {
+                           $scope.imageNameModal = modal;
+                   });
+               
+               $scope.openImageNameModal = function() {
+                   $scope.imageNameModal.show();
+               };
+               
+               $scope.closeImageNameModal = function(image) {
+			$scope.imageName = image.name;
+			$scope.images.push({
+				"fileURI" : $scope.fileURI,
+				"imageName" : $scope.imageName
+			});
+			$scope.showImagesItem = $scope.images.length;
+			$scope.imageName = '';
+			$scope.fileURI = '';
+			console.log("image");
+			console.log(image);
+			console.log("scope images");
+			console.log($scope.images);
+                   $scope.imageNameModal.hide();
+               };
+               
+               //Cleanup the modal when we're done with it!
+               $scope.$on('$destroy', function() {
+                          $scope.sitesModal.remove();
+                          $scope.projectModal.remove();
+                          $scope.pictureModal.remove();
+                          $scope.formsModal.remove();
+                          $scope.imageNameModal.remove();
+                          $scope.observationModal.remove();
+                          $scope.viewGalleryModal.remove();
+                });
+               
+               // Execute action on hide modal
+               $scope.$on('modal.hidden', function() {
+                          // Execute action
+                });
+               
+               // Execute action on remove modal
+               $scope.$on('modal.removed', function() {
+                          // Execute action
+              });
+})
+
+app.service('LoginService', function($q, $http, $state){
+	return{ 
+		loginUser: function(name, pw, projects){
+			var deferred = $q.defer();
+			var promise = deferred.promise;
+
+			if(name == "" || name == null ){
+				deferred.reject('Wrong credentials');
+				window.localStorage.removeItem('loggedInUser');
+			}else{
+				deferred.resolve('Welcome ' + name + '!');
+			}
+			promise.success = function(fn){
+				promise.then(fn);
+				return promise;
+			}
+			promise.error = function(fn){
+				promise.then(null, fn);
+				return promise;
+			}
+			return promise;
+		}
+	}
+})
+
+app.factory('Camera', ['$q', function($q) {
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+      navigator.camera.getPicture(function(result) {
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+      return q.promise;
+    },
+    getGallery: function(options) {
+      var q = $q.defer();
+      navigator.camera.getPicture(function(result) {
+        // Do any magic you need
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+      return q.promise;
+    }
+  }
+}]);
+
+
+app.directive('compareStrings', function(){
+	return{
+		require: "ngModel",
+		link: function(scope, element, attributes, ngModel){
+				ngModel.$validators.compareTo = function(modelValue){
+					return modelValue == scope.otherModelValue;
+				};
+
+				scope.$watch("otherModelValue", function(){
+					ngModel.$validate();
+				});
+
+			}
+
+	};
+}); 
+

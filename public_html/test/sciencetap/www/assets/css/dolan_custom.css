@@ -1,0 +1,47 @@
+/* Custom css style sheet */
+
+header{
+	margin: 0;
+	background: url('../images/background.jpg');
+}
+.banner p{
+	background: -webkit-linear-gradient(top, #ffffff, #c20);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+h2 a{
+	background: -webkit-linear-gradient(top, #444444, #c20);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+h2 a:hover{
+	background: -webkit-linear-gradient(top, #ffffff, #c20);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+body{
+	margin: 0;
+	background: url('../images/background_white1.jpg');
+}
+footer p{
+	background: -webkit-linear-gradient(top, #000, #00c);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.tab-content{
+	background-color: #f5f5f5;
+}
+#sidebar{
+	background: #000;
+	height: 100%;
+	float: left;
+}
+#studio{
+	background: -webkit-linear-gradient(top, #000, #fff);
+}
+
+#studio img{
+	background-color: #d5d5d5;
+	height: 150px;
+	max-width: 700px;
+}

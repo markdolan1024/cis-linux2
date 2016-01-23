@@ -1,0 +1,8 @@
+diskpart
+list disk
+select disk n
+list partition
+select partition n
+delete partition
+
+

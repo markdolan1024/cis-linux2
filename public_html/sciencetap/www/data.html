@@ -1,0 +1,1979 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      
+          
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+		 
+            <!-- Owl Carousel Assets -->
+        <link href="css/owl.carousel.css" rel="stylesheet">
+        <link href="css/owl.theme.css" rel="stylesheet">
+   
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+     <!--   <script type="text/javascript" src="js/jquery.serializejson.js"></script>
+        <script type="text/javascript" src= src="js/jquery.serializejson.min.js"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+     	<script src="js/TouchCarouse/owl.carousel.js"></script>
+        
+
+    </head>
+    
+    <body>
+    
+    
+    
+  <div data-role="page" data-theme="a" id="pageProject">
+        
+      <div data-role="panel" id="panelPageProject" data-display="overlay">
+        
+        	<div id="containerPanel"> 
+            	<!-- here I need to create the menu of m panels. -->
+                <div id="contLogo">
+                     <div><img src="" id="ImageUser" alt="logoTemple"></div>
+                     <div><p id="NameUser"></p></div>
+                </div>
+                <hr>
+                <div id="contMenu">
+                
+                	
+                	<ul id="menuPanel">
+                    	<li id="homeTag"><img src="Images/Home_Icon.png" alt="login Icon"> <p>Home</p></li>
+                     	<li id="dataTag"><img src="Images/addData.png" alt="login Icon"> <p>Projects</p></li>
+                      	<li id="mapTag"><img  src="Images/MapIcon.png" alt="login Icon"> <p>Map</p></li>
+                      	<li id="teamTag"><img src="Images/members_icon.png" alt="login Icon">	<p>Teams</p></li>
+                      	<!-- <li><img src="Images/Search.png" alt="login Icon"> <p>Search</p></li> -->
+                      	<li id="logoutTag"><img src="Images/logoutIcon.png" alt="logout Icon"> <p>Logout </p></li>
+                   </ul>
+                	
+                </div>
+            
+            
+            </div>
+        		
+                
+		</div><!-- /panel -->
+        	
+        
+       
+        	
+                <div data-role="header" data-theme="z" id="HeaderBar" >
+                	
+                    <a href="#panelPageProject" data-ajax="false"><img src="Images/barsIcon.png" alt="iconBars"></a>
+                    <div id="infoUser">
+                    	<p>Projects</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      				<div id="contentProjectTable">
+                    
+                   		<!-- display info with Ajax --> 
+                   
+                    
+                    </div><!-- end contentProjectTable -->
+                
+                
+                
+         			
+                           
+             	</div> <!-- this is the end of my content -->
+                
+                
+                
+              
+                 <div data-role="footer" data-position="fixed" id="footer">
+               		<div id="containerFooter">
+                    	<div class="FooterMenu">
+                        	<div class="contImageFooter"><a href="#pageProject" data-transition="slide"  data-direction="reverse"><img src="Images/Projects.png" alt="Current Icon"></a></div>
+                            <div><p>Projects</p></div>
+                        </div>
+                       
+                        <div class="FooterMenu">
+                        	<div class="contImageFooter"><a href="#pageData" data-transition="slide" onClick="LoadMapProject()"><img src="Images/Icons/MarkerMap.png" alt="Gallery Icon"></a></div>
+                            <div><p>Project on map</p></div>
+                        </div>
+                       
+                        	
+                 	</div> <!-- end containerFooter -->
+                   
+			   </div><!-- /footer -->
+               
+    	
+          </div> <!-- this is the end of my page -->
+    
+    
+    
+    
+    	<div data-role="page" data-theme="a" id="pageData">
+        
+                 
+        
+       
+        		<!-- this is my panel to search user -->
+                
+                  <div data-role="panel" id="myPanel" data-display="overlay" data-position="right">
+        
+                    <div id="containerPanel"> 
+                    
+                        <!-- here I need to create the menu of m panels. -->
+                        <div id="contTitlePanel">
+                        	<div><p>Search Projects:</p></div>
+                        </div>
+                        <hr>
+                         <div id="contMenuStreams">
+                         
+                         	<!-- fill info with ajax -->
+                               
+                            
+                        </div> <!-- end contMenuStreams -->
+                        
+                      
+                            <input type="text" id="searchByStreamNamePanel" placeholder="Stream Name" />
+                            <button type="button" id="searchByStreamNameBtnPanel">Search</button>
+                         
+                    
+                        
+                    </div><!-- end containerPanel --> 
+                
+				</div><!-- /panel -->
+        	
+	
+        
+          
+                <div data-role="header" data-theme="z" id="HeaderBar" >
+                	<a></a>
+                    <a href="#myPanel" data-ajax="false"><img src="Images/searchIconWhite.png" alt="iconSearch"></a>
+                    <div id="infoUser">
+                    	<p>Map Projects</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      			
+         			  <div id="mapData">
+                           
+                           </div> <!-- end  map-canvas -->
+                      	<ul id="mapButtons">
+                        	<li id="CurrentPosition"><img src="Images/Icons/CurrentPosition.png" alt="Current Icon"></li>
+                            <li id="traficBtn">Trafic</li>
+                            <li id="weatherBtn">Weather</li>
+                        </ul>
+                      
+                           
+             	</div> <!-- this is the end of my content -->
+                
+                
+                
+              
+                     <div data-role="footer" data-position="fixed" id="footer">
+               		<div id="containerFooter">
+                    	<div class="FooterMenu">
+                        	<div class="contImageFooter"><a href="#pageProject" data-transition="slide"  data-direction="reverse"><img src="Images/Projects.png" alt="Current Icon"></a></div>
+                            <div><p>Projects</p></div>
+                        </div>
+                       
+                        <div class="FooterMenu">
+                        	<div class="contImageFooter"><a href="#pageData" data-transition="slide" onClick="LoadMapProject()"><img src="Images/Icons/MarkerMap.png" alt="Gallery Icon"></a></div>
+                            <div><p>Project on map</p></div>
+                        </div>
+                       
+                        	
+                 	</div> <!-- end containerFooter -->
+                   
+			   </div><!-- /footer -->
+               
+    	
+          </div> <!-- this is the end of my page -->
+     
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <div data-role="page" data-theme="a" id="pageAddStream">
+        
+     
+     
+                <div data-role="header" data-theme="z" id="HeaderBar" >
+                	<a href="#pageProject" data-transition="slide"  data-direction="reverse" id="backToMap"><img src="Images/BackWhite.png" alt="iconBack"></a>
+                    <a href="compass.html" data-ajax="false"><img src="Images/compassIcon.png" alt="iconCompass"></a>
+                    
+                  
+                    <div id="infoUser">
+                    	<p id="compassDegree">Project Info</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      			
+         			
+                    <div id="dataSite">
+                    
+                    	<div id="leftDataSite">
+                        
+                        	<div class="LineStream">
+                                <div class="TitleStream">Name:</div>
+                                <div id="Stream_Name_p"></div>
+                        	</div> <!-- end lineStream -->
+                            <div class="LineStream">
+                                <div class="TitleStream">Latitud:</div>
+                                <div id="Stream_Lat_p"></div>
+                        	</div> <!-- end lineStream -->
+                            <div class="LineStream">
+                                <div class="TitleStream">Longitud:</div>
+                                <div id="Stream_Lon_p"></div>
+                        	</div> <!-- end lineStream -->
+                             <div class="LineStream">
+                                <div class="TitleStream">Date:</div>
+                                <div id="Stream_Date_p"></div>
+                        	</div> <!-- end lineStream -->
+                              <div class="LineStream">
+                                <div class="TitleStream">Time:</div>
+                                <div id="Stream_Time_p"></div>
+                        	</div> <!-- end lineStream -->
+                             <div class="LineStream">
+                                <div class="TitleStream">By:</div>
+                                <div id="Stream_TeamName_p"></div>
+                        	</div> <!-- end lineStream -->
+                       	</div> <!-- end leftDataSite -->
+                        
+                        <!-- this containt the miniMap -->
+                        <div id="rightDataSite">
+                        	<img src="Images/Compass/needle2.png" id="needleImgBnt" alt="NoImg">
+                        
+                        </div>
+                      
+                  </div> <!-- end of dataSite -->
+                  
+                
+                  
+                  <div id="containerSites">
+                 
+                  	<ul id="topSites">
+                    	<li id="siteName">Sites</li>
+                        <li id="siteAction">Actions</li>
+                    </ul>
+                  	<div id="containerSiteLoop">
+                    	
+                      <!-- here is displaying the info by ajax -->
+                        
+                    
+                        
+                    </div><!-- end containerSiteLoop -->
+                  
+                  </div><!-- end containerSites -->
+                   
+                   
+                   
+                   
+                   <!-- the following container is to add new sites -->
+                    
+                      <div id="containerAddSite">
+                      	<hr>
+                     
+                        <div id="lineCoordenates">
+                        	<div id="leftLineCoordenates">
+                            	<input type="text" placeholder="Site Name" id="siteNameInput" /> 
+                                <input type="text" placeholder="Latitud" id="siteLaitudInput" /> 
+                                <input type="text" placeholder="Longitude" id="siteLongitudInput" /> 
+                                <textarea rows="3" cols="10" placeholder="Description" id="siteDescriptionSite"></textarea>
+                        	</div>
+                            <div id="rightLineCoordenates">
+                            	<img src="Images/Icons/CurrentPosition.png" alt="current Position" id="imgNeedle"/>
+                            </div>
+                        </div>
+                        
+                                <input type="hidden" id="siteStream_Id" />
+                                <input type="hidden" id="siteUser_Id" />
+                                <h1 id="btnAddSite">Create Site</h1>
+                     
+                      </div> 
+                        
+                    
+                    
+                    
+                    
+                    
+                           
+             	</div> <!-- this is the end of my content -->
+                
+                
+                
+              
+                 <div data-role="footer" data-position="fixed" id="footer">
+                 
+                 
+               		<div id="containerFooter">
+                    
+                    	<div class="FooterMenuAddSites">
+                         	 <div><p>New Site</p></div>
+                        </div> <!-- end containerFooter -->
+                        
+                        <div class="FooterMenuDisplaySites">
+                         	 <div><p>Display Sites</p></div>
+                        </div>
+                   </div> <!-- end containerFooter -->
+                   
+			   </div><!-- /footer -->
+        </div> <!-- this is the end of my page -->
+   
+   
+   
+   
+   
+   
+   
+   
+   <!-- This section is to create the forms that are necesary to complete -->
+     
+     
+   <div data-role="page" data-theme="a" id="observationsForms">
+        
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert" data-position="fixed">
+                	<a href="#pageAddStream" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo">Observations</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      		
+                        
+                        
+                        <div id="containerObservational">
+                        
+                           
+                            
+                            <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Days since last rainfall:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="DaysRainfalInput"/>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Approximate rainfall:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="text" id="ApproxRainfalInput"/>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Current weather:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="WeatherInput">
+                                       		<option value=""></option>
+                                        	<option value="Clear">Clear</option>
+                                            <option value="Partly cloudy">Partly cloudy</option>
+                                            <option value="Overcast">Overcast</option>
+                                            <option value="Snow">Snow</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                               <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Rain:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="RainTypeInput">
+                                        	<option value=""></option>
+                                        	<option value="None">None</option>
+                                            <option value="Light">Light</option>
+                                            <option value="Steady">Steady</option>
+                                            <option value="Heavy">Heavy</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Water clarity:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="WaterClarityInput">
+                                        	<option value=""></option>
+                                        	<option value="Clear">Clear</option>
+                                            <option value="Slightly cloudy">Slightly cloudy</option>
+                                            <option value="Cloudy">Cloudy</option>
+                                            <option value="Opaque">Opaque</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                            <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Surface Coating:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select name="SurfaceCoatInpt" id="SurfaceCoatInpt" onChange="checkSurface()">
+                                        	<option value=""></option>
+                                        	<option value="None/Clear">None/Clear</option>
+                                            <option value="Foam">Foam</option>
+                                            <option value="Scum">Scum</option>
+                                            <option value="Oily">Oily</option> 
+                                            <option value="Other">Other</option>  
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                               <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Odor:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="OdorCoatInpt" onChange="checkOdor()">
+                                        	<option value=""></option>
+                                        	<option value="Normal">Normal</option>
+                                            <option value="Sewage">Sewage</option>
+                                            <option value="Anaerobic">Anaerobic</option>
+                                            <option value="Chemical">Chemical</option>  
+                                            <option value="Petroleum">Petroleum</option> 
+                                            <option value="Other">Other</option> 
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                                 
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Stream bed color:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="StreamBedColorInput" onChange="checkBedColor()">
+                                        	<option value=""></option>
+                                        	<option value="Orange/Red">Orange/Red</option>
+                                            <option value="Yellow">Yellow</option>
+                                            <option value="Black">Black</option>
+                                            <option value="Brown">Brown</option>
+                                            <option value="Green">Green</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>% Shade:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="ShadeInpt">
+                                        	<option value=""></option>
+                                        	<option value=" < 30 "> -30% </option>
+                                            <option value="30 - 50">30 - 50%</option>
+                                            <option value="50 - 80">50 - 80%</option>
+                                            <option value="+80">+80%</option>  
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Algae cover:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="AlgaeCoverInpt">
+                                       		<option value=""></option>
+                                        	<option value="Rare">Rare</option>
+                                            <option value="Moderate">Moderate</option>
+                                            <option value="Abundant">Abundant</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                          		<!--   
+                                     <div class="lineFormObservations">
+                                            <div class="leftLineFormObservations">
+                                                <label>Algae locations:</label>
+                                            </div> 
+                                            
+                                            <div class="rightLineFormObservations">
+                                                <select id="AlgaeLocationInpt">
+                                                    <option value=""></option>
+                                                    <option value="None">None</option>
+                                                    <option value="Filamentous">Filamentous</option>
+                                                    <option value="Periphyton">Periphyton</option>
+                                               </select>
+                                            </div>
+                                     </div> 
+                               	-->
+                             
+                              <div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Aquatic vegetation:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="AquaticVegetationInpt">
+                                        	<option value=""></option>
+                                        	<option value="None">None</option>
+                                            <option value="Floating">Floating</option>
+                                            <option value="Rooted submerged">Rooted submerged</option>
+                                            <option value="Rooted floating">Rooted floating</option>
+                                            <option value="Rooted emergent">Rooted emergent</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                        
+                        	<div class="lineFormObservations">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Flow:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<select id="FlowInpt">
+                                        	<option value=""></option>
+                                        	<option value="Slow">Slow</option>
+                                            <option value="Moderate">Moderate</option>
+                                            <option value="Swift">Swift</option>
+                                            <option value="Combination">Combination</option>
+                                       </select>
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                              <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Leaf packs:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="LeafPacks">
+                                               <option value=""></option>
+                                               <option value="None">None</option>
+                                               <option value="Individual leaves">Individual leaves</option>
+                                               <option value="Small leaf packs (5-20 leaves)">Small leaf packs (5-20 leaves)</option>
+                                                <option value="Large leaf clumps (>20 leaves)">Large leaf clumps (>20 leaves)</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               
+                               
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Erosion:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="indiNewErosionInput">
+                                               <option value=""></option>
+                                               <option value="No changes">No changes</option>
+                                               <option value="Continued bank erosion">Continued bank erosion</option>
+                                               <option value="New bank erosion">New bank erosion</option>
+                                               <option value="Increased sediment deposition/islands">Increased sediment deposition/islands</option>
+                                               <option value="Decreased sediment deposition/islands">Decreased sediment deposition/islands</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Riparian vegetation:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="RiparianVegetationInput">
+                                               <option value=""></option>
+                                               <option value="No changes">No changes</option>
+                                               <option value="Decreased abundance">Decreased abundance</option>
+                                               <option value="Increased abundance">Increased abundance</option>
+                                               <option value="Change in types">Change in types</option>
+                                               <option value="Fallen trees">Fallen trees</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               
+                               
+                               <div class="lineFormObservations">
+                                     <div class="leftLineFormObservations">
+                                         <label>Animal observations:</label>
+                                     </div>  <!-- end leftLineFormObservations -->
+                                 	 <div class="rightLineFormObservations">
+                                          <select id="AnimalObservationInput">
+                                               <option value=""></option>
+                                               <option value="None">None</option>
+                                               <option value="Fish">Fish</option>
+                                               <option value="Birds">Birds</option>
+                                               <option value="Insects">Insects</option>
+                                               <option value="Mammals">Mammals</option>
+                                          </select>
+                                     </div>
+                               </div> <!-- end lineFormObservations -->
+                               
+                   <textarea rows="5" cols="10" placeholder="Describe" id="SamplesTakenInput"></textarea>
+                   <textarea rows="5" cols="10" placeholder="Aditional notes" id="AditionalNotesInput"></textarea>
+                   
+                   
+             		<hr class="hrResearch" >
+                    	<h1 class="titleFormMeasures">Probe Measurements</h1>
+                    <hr class="hrResearch">
+                    
+                    
+                     <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Dissolved Oxygen:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="DissolvelOxygenInput" placeholder="mg/L" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                   	
+             
+             		 <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>pH:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="pHInput" placeholder="pH" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+               
+                    
+                     <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Temperature(C&deg;):</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="number" id="temperatureInput" placeholder="Temperature C&deg;" />
+                                    </div>
+                      </div><!-- end lineFormObservations -->
+                  
+                    
+                            <div class="lineFormObservationsMeasures">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Conductivity:</label>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations">
+                                    	<input type="text" id="conductivityInput" placeholder="Conductivity" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                             
+                             
+                             
+                             
+                           <hr class="hrResearch">  
+                            <div class="lineFormObservations2">
+                                    <div class="leftLineFormObservationsTitle2">
+                                    	<h1 class="titleForm">Physical Measurements</h1>
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservations2">
+                                    	  <img src="Images/QuestionMark.png" alt="iconMark" id="PhysicalMeasure" />
+                                    </div>
+                         	 </div><!-- end lineFormObservations -->
+                              
+             			<hr class="hrResearch">
+                    
+                    <div class="lineFormObservationsStream">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Stream width(ft.):</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionStream" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservationsResearch">
+                                    	<div><input type="number" id="StreamWidth1" placeholder="Stream 1" /></div>
+                                        <div><input type="number" id="StreamWidth2" placeholder="Stream 2" /></div>
+                                        <div><input type="number" id="StreamWidth3" placeholder="Stream 3" /></div>
+                                    </div>
+                      </div><!-- end lineFormObservations -->	
+                    
+                    
+                    
+                         <div class="lineFormObservationsTime">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Time of travel (sec):</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionTime" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    
+                                    <div class="rightLineFormObservationsResearch">
+                                    	<div><input type="number" id="timeTravel1" placeholder="Time 1" /></div>
+                                        <div><input type="number" id="timeTravel2" placeholder="Time 2" /></div>
+                                        <div><input type="number" id="timeTravel3" placeholder="Time 3" /></div>
+                                       
+                                    </div>
+                      </div><!-- end lineFormObservations -->	     
+                             
+                             
+                             
+                             
+                        <div class="lineFormObservationsDepth">
+                                    <div class="leftLineFormObservations">
+                                    	<label>Depth:</label> <img src="Images/QuestionMark.png" alt="iconMark" id="QuestionDepth" />
+                                    </div> <!-- end leftLineFormObservations -->
+                                    <div id="contDepthMenu">
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc1" placeholder="Loc 1" /></div>
+                                            <div><input type="number" id="Depth1" placeholder="depth 1" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc2" placeholder="Loc 2" /></div>
+                                            <div><input type="number" id="Depth2" placeholder="depth 2" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc3" placeholder="Loc 3" /></div>
+                                            <div><input type="number" id="Depth3" placeholder="depth 3" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc4" placeholder="Loc 4" /></div>
+                                            <div><input type="number" id="Depth4" placeholder="depth 4" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc5" placeholder="Loc 5" /></div>
+                                            <div><input type="number" id="Depth5" placeholder="depth 5" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc6" placeholder="Loc 6" /></div>
+                                            <div><input type="number" id="Depth6" placeholder="depth 6" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        
+                                        
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc7" placeholder="Loc 7" /></div>
+                                            <div><input type="number" id="Depth7" placeholder="depth 7" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc8" placeholder="Loc 8" /></div>
+                                            <div><input type="number" id="Depth8" placeholder="depth 8" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc9" placeholder="Loc 9" /></div>
+                                            <div><input type="number" id="Depth9" placeholder="depth 9" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc10" placeholder="Loc 10" /></div>
+                                            <div><input type="number" id="Depth10" placeholder="depth 10" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc11" placeholder="Loc 11" /></div>
+                                            <div><input type="number" id="Depth11" placeholder="depth 11" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc12" placeholder="Loc 12" /></div>
+                                            <div><input type="number" id="Depth12" placeholder="depth 12" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc13" placeholder="Loc 13" /></div>
+                                            <div><input type="number" id="Depth13" placeholder="depth 13" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                          <div class="lineContenDepth">
+                                            <div><input type="number" id="Loc14" placeholder="Loc 14" /></div>
+                                            <div><input type="number" id="Depth14" placeholder="depth 14" /></div>
+                                        </div><!-- end lineContenDepth -->
+                                        
+                                   </div> <!-- end contDepthMenu --> 
+                      </div><!-- end lineFormObservations -->	     
+                             
+                             
+                             
+                       <div class="lineFormObservations3">
+                       				<input type="hidden" id="typeObservation"/>
+                                    <input type="hidden" id="ObservationIdToUpdate"/>
+                                    <input type="hidden" id="Site_Id"/>
+                                    <input type="hidden" id="Lat_Site"/>
+                                    <input type="hidden" id="Lon_Site"/>
+                                    <input type="hidden" id="Measurements_Id"/>
+                                    <input type="hidden" id="Physical_Measurements_Id"/>
+                                    
+                                    
+                                    <button type="button" id="bntObservation">Submit Observation</button>
+                                    <button type="button" id="bntObservationUpdate">Update Observation</button>
+                      </div><!-- end lineFormObservations -->	       
+                             
+                 
+                     
+                   	</div><!-- this is the end of containerObservational-->
+             
+              </div> <!-- this is the end of my content -->
+                
+     
+              
+          </div> <!-- this is the end of my page -->
+     
+   
+   
+
+
+
+
+		<div data-role="page" data-theme="a" id="displayObservations">
+        
+        
+          
+                <div data-role="header" data-theme="z"  id="HeaderBar" >
+                	<a href="#pageAddStream" data-transition="slide"  data-direction="reverse" id="backToMap"><img src="Images/BackWhite.png" alt="iconBack"></a>
+                      <div id="infoUser">
+                    	<p>Observations</p>
+                    </div>
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+                	
+                    
+                    
+                    
+                  <div id="contaninerObservations">
+                  
+                  	<div id="topObservationMenu">
+                    	<div class="leftTopObervationsDate">
+                        	<p>Date</p>
+                        </div> <!-- end leftTopObervations -->
+                        <div class="leftTopObervationsStream">
+                        	<p>Form</p>
+                        </div> <!-- end leftTopObervations -->
+                        <div class="leftTopObervationsSite">
+                        	<p>Site</p>
+                        </div> <!-- end leftTopObervations -->
+                        
+                        <div id="rightTopObervations">
+                        	<p>Actions</p>
+                        </div> <!-- end leftTopObervations -->
+                   </div> <!-- end topObservationsMenu -->
+                   
+                   
+                   
+                   <div id="containerObersationsLoop">
+                   
+                   
+                   		<!-- display observation with ajax-->
+                        
+                   
+                   
+                   </div> <!-- end containerObservationsLoop -->
+                  
+                
+                  
+                  </div> <!-- end contaninerObservations -->
+             
+                
+                </div>
+                
+                
+          </div> <!-- this is the end of my page -->
+     
+
+
+     
+   <div data-role="page" data-theme="a" id="infoSite">
+        
+
+   
+                <div data-role="header" data-theme="z" data-position="fixed" id="HeaderStreamInsert">
+                	<a href="#displayObservations" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo">Site Info</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+              
+                    <div data-role="content">
+                     
+                        <div id="containerObservationData">
+                            
+                            <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Days since last rainfall:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="lastRainFallInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Approximate rainfall:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="approxRainfallInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                            
+                            
+                            
+                            
+                               <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Current weather:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="currentWeatherInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Rain:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="rainInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                             
+                             
+                             
+                               <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Water clarity:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="waterClarityInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Surface Coating:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="surfaceCoatingInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                             
+                              <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Odor:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="OdorInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Stream bed color:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="StreamBedColorInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                             
+                             
+                             
+                             
+                               <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>% Shade:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="shadeInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Algae cover:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="algaeCoverInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                             
+                             
+                             
+                             
+                              <div class="containerTwoLines">
+                              
+                              
+                              		 <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Aquatic vegetation:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="AquaticVegetationInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Flow:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="flowInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                             
+                             
+                              <div class="containerTwoLines">
+                            
+                                    
+                                    
+                                     <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Leaf Packs:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="LeafPacksInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                     <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Erosion</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="ErosionInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                  
+                                    
+                                    
+                                  
+                             </div><!-- end containerTwoLines-->
+                             
+                               <div class="containerTwoLines">
+                            		
+                                      <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Riparian vegetation:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="changeRiparianInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                     <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations">
+                                            <p>Animal observations:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="animalObservationInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                   
+                                  
+                             </div><!-- end containerTwoLines-->
+                            
+                            
+                            <hr>
+                            
+                         
+                            
+                             <div class="textNotesObervations"> 
+                            	<div class="topTextNotesObservations">
+                                	<p>Aditional notes:</p>
+                                </div><!-- end topTextNotesObservations -->
+                                <div class="bottomTextNotesObservations">
+                                	<p id="AditionalNotesInfo"> </p>
+                                </div><!-- end topTextNotesObservations -->
+                            </div> <!-- end textNotesObervations -->
+                            
+                            
+                              <div class="textNotesObervations"> 
+                            	<div class="topTextNotesObservations">
+                                	<p>Describe:</p>
+                                </div><!-- end topTextNotesObservations -->
+                                <div class="bottomTextNotesObservations">
+                                	<p id="SamplesTakenInfo"></p>
+                                </div><!-- end topTextNotesObservations -->
+                            </div> <!-- end textNotesObervations -->
+                            
+                           
+                           
+                           
+                           
+                   <div id="containerResearchInfo">     
+                           
+                            
+                            <hr>
+                            	<h1 class="titleFormMeasuresInfo"> Probe Measurements</h1>
+                            <hr> 
+                            
+                             <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>Dissolved Oxygen:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="DissolvelOxygenInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>pH:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="pHInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                            
+                             
+                             <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>Temperature C&deg;:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="temperatureInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>Conductivity:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations">
+                                            <p id="conductivityInfo"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                            
+                            
+                            
+                         
+                            
+                            
+                             <hr>
+                            	<h1 class="titleFormMeasuresInfo">Physical Measurements</h1>
+                             <hr> 
+                            
+                             <div class="containerTwoLines">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>Stream width(ft):</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations3Option">
+                                            <p id="StreamWidth1Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations3Option">
+                                            <p id="StreamWidth2Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations3Option">
+                                            <p id="StreamWidth3Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservations3option">
+                                            <p>Time of Travel (sec):</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservations3Option">
+                                            <p id="timeTravel1Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                          <div class="rightLineDisplayObservations3Option">
+                                            <p id="timeTravel2Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                          <div class="rightLineDisplayObservations3Option">
+                                            <p id="timeTravel3Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLines-->
+                            
+                            
+                             
+                           
+                            
+                            
+                            <hr>
+                            	<h1 class="titleFormMeasuresInfo">Depth</h1>
+                             <hr> 
+                             
+                             <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 1:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc1Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 1:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth1Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                             
+                               <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 2:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc2Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 2:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth2Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 3:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc3Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 3:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth3Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 4:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc4Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 4:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth4Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 5:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc5Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 5:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth5Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 6:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc6Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 6:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth6Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 7:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc7Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 7:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth7Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 8:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc8Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 8:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth8Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 9:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc9Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 9:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth9Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 10:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc10Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 10:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth10Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                           
+                             <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 11:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc11Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 11:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth11Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                             
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 12:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc12Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 12:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth12Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 13:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc13Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 13:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth13Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+                            
+                            
+                            
+                            
+                              <div class="containerTwoLinesDepth">
+                            
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Loc 14:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Loc14Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                                    
+                                    
+                                    <div class="linesDisplayObservations">
+                                        <div class="leftLineDisplayObservationsLoc">
+                                            <p>Depth 14:</p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                        <div class="rightLineDisplayObservationsDepth">
+                                            <p id="Depth14Info"></p>
+                                        </div><!-- leftLineDisplayObservations-->
+                                    
+                                    </div> <!-- end linesDisplayObservations -->
+                            
+                             </div><!-- end containerTwoLinesDepth-->
+               
+               
+                </div> <!--- end containerResearchInfo --> 
+               
+               
+               
+                     
+                       </div> <!-- end containerUpdateUser -->
+                    
+                            
+                        <!--- here at this point I want to implements the carousel -->
+                        
+                        
+                        <div id="containerCarousel">	
+                     		<!-- display Images with ajax -->          
+                        </div> <!-- end containerCarousel -->
+         
+                            
+                   </div> <!-- this is the end of my content -->
+                      
+          </div> <!-- this is the end of my page -->
+     
+     
+     
+     
+  
+     
+     	<div data-role="page" data-theme="a" id="slideImages">
+        	 
+              	
+                
+        
+                                          <div id="owl-demo" class="owl-carousel">
+                                         		<!-- full img with ajax -->
+                                          </div> <!-- end owl-demo -->
+             
+               
+                <div data-role="footer" data-position="fixed" id="footerImg">
+                	<a onClick="PlayStopFunction()" data-theme="b"><img src="Images/imgCarousel/pause.png" id="playBtnImg" alt="PlayImg"></a>
+                    	<div id="middleFooter"><p>ScienceTap</p></div>
+               		<a href="#infoSite" data-transition="slidedown" onClick="CloseCarousel()"  data-theme="b">Close</a>
+                </div>
+                
+   
+       </div> <!-- this is the end of my page -->
+     
+   
+   
+   
+   
+   
+     
+    <div data-role="page" data-theme="a" id="ResultFormEdit">
+        
+
+   
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert" data-position="fixed">
+                	<a href="#displayObservations" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo"><p id="formNameResultEdit"></p></p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      					
+                        	<div id="latLonSiteInfo">
+                            	<div id="leftLatLonSiteInfo">
+                                	<div class="topLatLonSiteInfo">
+                                    	<p>Latitud</p>
+                                    </div>
+                                    <div class="BottomLatLonSiteInfo">
+                                    <input type="number" id="lat_DynamicOberservationEdit"/>
+                                    </div>
+                                    
+                                	
+                                </div>
+                                <div id="middleLatLonSiteInfo">
+                                	<div class="topLatLonSiteInfo">
+                                    	<p>Longitud</p>
+                                    </div>
+                                    <div class="BottomLatLonSiteInfo">
+                                    	<input type="number" id="lon_DynamicOberservationEdit"/>
+                                    </div>
+                                </div>
+                                
+                                <input type="hidden" id="site_DynamicOberservationEdit"/>
+                                <input type="hidden" id="DynamicOberservationEdit"/>
+                               
+                            </div> <!-- end latLonSiteInfo -->
+                       <form id="dynamicFormEdit">
+                         <div id="containerFormDisplayEdit">
+                        	
+                            	<div class="twoLabelAndInputEdit">
+                                
+                                		<!-- display form with ajax -->
+                                
+                                </div><!-- end twoLabelAndInput -->
+                        
+                       
+                        
+                        </div> <!-- end containerUpdateUser -->
+                        </form>
+   					<div id="lineBtnDynamicFormEdit"> <button type="button" id="btnDynamicFormEdit">Edit Form</button></div>
+             	</div> <!-- this is the end of my content -->
+                
+     
+              
+          </div> <!-- this is the end of my page -->
+     
+       
+   		
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     
+   <div data-role="page" data-theme="a" id="infoDynamicObservation">
+        
+
+   
+                <div data-role="header" data-theme="z" data-position="fixed" id="HeaderDisplayDynamicData">
+                	<a href="#displayObservations" data-transition="slidedown" id="buttonCloseDynamicDataInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo">Observation Info</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+              
+                    <div data-role="content">
+                    
+                    	<div id="lineLatLon">
+                        	<div id="LineLat">
+                            	<div><p class="labelDynamicForms">Latitud:</p></div>
+                            	<div><p id="latP"></p></div>
+                            </div> <!-- end LineLat -->
+                        	<div id="LineLon">
+                            	<div><p class="labelDynamicForms">Longitud:</p></div>
+                            	<div><p id="lonP"></p></div>
+                            </div> <!-- end LineLon -->
+                        </div><!-- lineLatLon -->
+                    	
+                     
+                     <hr class="hrWidht">
+               
+           
+               
+               			<div id="containerDispayDynamicInfo">
+                        		<!-- here display info with ajax -->
+                        </div> <!-- end containerDispayDynamicInfo -->
+               
+                    </div> <!-- end content -->
+                    
+                            
+                        <!--- here at this point I want to implements the carousel -->
+                        
+                        
+                       
+                            
+                   </div> <!-- this is the end of my content -->
+                      
+          </div> <!-- this is the end of my page -->
+     
+     
+        
+        
+        
+           
+     <div data-role="page" data-theme="a" id="slideImagesDynamic">
+        	 
+              	
+                
+        
+                                          <div id="owl-demo2" class="owl-carousel">
+                                         		<!-- full img with ajax -->
+                                          </div> <!-- end owl-demo -->
+             
+               
+                <div data-role="footer" data-position="fixed" id="footerImg">
+                	<a onClick="PlayStopFunction2()" data-theme="b"><img src="Images/imgCarousel/pause.png" id="playBtnImg2" alt="PlayImg"></a>
+                    	<div id="middleFooter"><p>ScienceTap</p></div>
+               		<a href="#infoDynamicObservation" data-transition="slidedown" onClick="CloseCarousel2()"  data-theme="b">Close</a>
+                </div>
+                
+   
+       </div> <!-- this is the end of my page -->
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     
+       <div data-role="page" data-theme="a" id="ResultForm">
+        
+
+   
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert" data-position="fixed">
+                	<a href="#pageAddStream" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo"><p id="formNameResult"></p></p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      					
+                        	<div id="latLonSiteInfo">
+                            	<div id="leftLatLonSiteInfo">
+                                	<div class="topLatLonSiteInfo">
+                                    	<p>Latitud</p>
+                                    </div>
+                                    <div class="BottomLatLonSiteInfo">
+                                    <input type="number" id="lat_DynamicOberservation"/>
+                                    </div>
+                                    
+                                	
+                                </div>
+                                <div id="middleLatLonSiteInfo">
+                                	<div class="topLatLonSiteInfo">
+                                    	<p>Longitud</p>
+                                    </div>
+                                    <div class="BottomLatLonSiteInfo">
+                                    	<input type="number" id="lon_DynamicOberservation"/>
+                                    </div>
+                                </div>
+                                
+                                <input type="hidden" id="site_DynamicOberservation"/>
+                                
+                               
+                            </div> <!-- end latLonSiteInfo -->
+                       <form id="dynamicForm">
+                         <div id="containerFormDisplay">
+                        	
+                            	<div class="twoLabelAndInput">
+                                
+                                		<!-- display form with ajax -->
+                                
+                                </div><!-- end twoLabelAndInput -->
+                        
+                       
+                        
+                        </div> <!-- end containerUpdateUser -->
+                        </form>
+   					<div id="lineBtnDynamicForm"> <button type="button" id="btnDynamicForm">Submit Form</button></div>
+             	</div> <!-- this is the end of my content -->
+                
+     
+              
+          </div> <!-- this is the end of my page -->
+     
+       
+  
+     
+     
+     
+       
+  
+     
+     
+     
+   
+   		
+   	
+   		
+     
+       
+    </body>
+</html>
+
+
+<script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		
+		$('#menuPanel2').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+	}
+ </script>
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/map_StreamJson.js"></script>
+<script src="js/CameraData.js"></script>
+<script src="js/CameraDataDynamic.js"></script>
+
+
+<script src="js/TouchCarouse/jquery.openCarousel.js"></script>
+
+

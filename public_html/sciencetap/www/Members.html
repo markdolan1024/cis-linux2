@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+  
+        
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+       
+            
+           
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a">
+          
+                <div data-role="header" data-theme="z" id="HeaderBar">
+                	<a href="weather.html" data-ajax="false"><img src="Images/Back.png" alt="iconBack"></a>
+                    <a id="SearchUser" data-ajax="false"><img src="Images/searchIcon.png" alt="iconSearch"></a>
+                    <div id="infoUser">
+                    	<img src="Images/juan.png" alt="logo User"><p>Juan Huertas</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          	
+            <div id="serarchContainer">
+            	 <a id="closeSearch" data-ajax="false"><img src="Images/close.png" alt="iconBack"></a>
+                 
+                 <div id="boxInputNameUser"><input type="text" name="nameUser" id="nameUserInput" placeholder="Search by Name"></div>
+                 <div id="boxButtonUser"><input type="button" name="searchUser" value="Search" ></div>
+            
+            </div>
+          
+          
+          
+                <div data-role="content">
+                   <div id="containerUser">
+                    	
+                    	<!-- the following line is to make the loop -->
+                        <div class="lineMembersTeam">
+                        			<div class="leftLineMembers">
+                                    	<img src="imgTeam/juan.png" alt="img Team"> 
+                                    </div>
+                                    <div class="centerLineMembers">
+                                    	<div class="nameBoxMembers"><p>  Juan Huertas Fernandez </p> </div>
+                                        <div class="UniBoxMembers"> <p>  Temple University </p> </div>
+                                 
+                                    </div>
+                                    <div class="rightLineMembers linkToInfoTeam">
+                                  		<img src="Images/Fordward.png" alt="iconNext" /> 
+                                    </div>	
+                         </div> <!-- end lineMembersTeam -->
+                         
+                        
+                    
+                    
+                    
+                    
+                    
+                    
+                    </div> <!-- end of my content -->
+             </div> <!-- this is the end of my content -->
+              
+                
+                
+          </div> <!-- this is the end of my page -->
+     
+       
+    </body>
+</html>
+
+<script type="text/javascript" src="js/myFunctions.js"></script>

@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+  
+        
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+        <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel").panel("close");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel").panel("open");
+				});
+		</script>
+       
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a" id="pageAdmin">
+        
+        <div data-role="panel" id="panelPageAdmin" data-display="overlay">
+                
+                    <div id="containerPanel"> 
+                        <!-- here I need to create the menu of m panels. -->
+                        <div id="contLogo">
+                             <div><img src="" id="ImageUser" alt="logoTemple"></div>
+                             <div><p id="NameUser"></p></div>
+                        </div>
+                        <hr>
+                        <div id="contMenu">
+                        
+                            
+                            <ul id="menuPanel">
+                                  <li id="homeTag"><img src="Images/Home_Icon.png" alt="login Icon"> <p>Home</p></li>
+                                  <li id="dataTag"><img src="Images/addData.png" alt="login Icon"> <p>Projects</p></li>
+                                  <li id="mapTag"><img  src="Images/MapIcon.png" alt="login Icon"> <p>Map</p></li>
+                                  <li id="teamTag"><img src="Images/members_icon.png" alt="login Icon">	<p>Teams</p></li>
+                                  <!-- <li><img src="Images/Search.png" alt="login Icon"> <p>Search</p></li> -->
+                                  <li id="logoutTag"><img src="Images/logoutIcon.png" alt="logout Icon"> <p>Logout </p></li>
+                           </ul>
+                            
+                        </div>
+                    
+                    
+                    </div>
+                        
+                        
+                </div><!-- /panel -->
+                
+        
+        		<!-- this is my panel to search user -->
+                
+                  <div data-role="panel" id="myPanel" data-display="overlay" data-position="right">
+        
+                    <div id="containerPanel"> 
+                        <!-- here I need to create the menu of m panels. -->
+                        <div id="contTitlePanel">
+                        	<div><p>Search by:</p></div>
+                        </div>
+                        <hr>
+                        <div id="contMenuSearch">
+                        
+                            
+                            <ul id="menuPanel">
+                              <li id="nameTagSearch"><p>Name</p></li>
+                              <li id="lastTagSearch"><p>Last</p></li>
+                              <li id="emailTagSearch"><p>Email</p></li>
+                              <li id="roleTagSearch"><p>Role</p></li>
+                            </ul>
+                            
+                            <div id="divSearchPanel">
+                            
+                            	<div id="contSerchByNamePanel">
+                                	<input type="text" id="searchByNamePanel" placeholder="First Name" />
+                                    <button type="button" id="searchByNameBtnPanel">Search</button>
+                                </div>
+                                
+                                <div id="contSerchByLastPanel">
+                                	<input type="text" id="searchByLastPanel" placeholder="Last Name" />
+                                    <button type="button" id="searchByLastBtnPanel">Search</button>
+                                </div>
+                                
+                                 <div id="contSerchByEmailPanel">
+                                	<input type="text" id="searchByEmailPanel" placeholder="Email" />
+                                    <button type="button" id="searchByEmailBtnPanel">Search</button>
+                               	 </div>
+                                 
+                                  <div id="contSerchByRolePanel">
+                                  	<select id="searchByRolePanel">
+                                    	<option value="1">Web user</option>
+                                        <option value="2">Administrator</option>
+                                    </select>
+                                	
+                                    <button type="button" id="searchByRoleBtnPanel">Search</button>
+                               	 </div>
+                            
+                            </div>
+                            
+                        </div>
+                    
+                    
+                    </div>
+                        
+                
+		</div><!-- /panel -->
+     
+          
+                <div data-role="header" data-theme="z" id="HeaderBar" >
+                	<a href="#panelPageAdmin"> <img src="Images/barsIcon.png" alt="iconBars"></a>
+                    <a href="#myPanel" data-ajax="false"><img src="Images/searchIconWhite.png" alt="iconSearch"></a>
+                    <div id="infoUser">
+                    	<p>Admin Members</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      			
+         			  <div id="containerUser">
+                    	
+                    	<!-- the following line is to make the loop -->
+                        
+                    
+                    </div> <!-- end of my containerUser -->
+   
+             	</div> <!-- this is the end of my content -->
+                
+              
+                 <div data-role="footer" data-position="fixed" id="footer">
+               		<div id="containerFooter">
+                    	<div class="membersAdmin leftFooter">
+                        	<div class="contImageFooter"><img src="Images/MemberIcon.png" alt="Register Icon"></div>
+                            <div><p>Members</p></div>
+                        </div>
+                       
+                        <div class="addMemberAdmin leftFooter">
+                        	<div class="contImageFooter"><img src="Images/addMember.png" alt="Register Icon"></div>
+                            <div><p>Add Member</p></div>
+                        </div>
+                         <div class="teamAdmin leftFooter">
+                       	 	<div class="contImageFooter"><img src="Images/TeamIcon.png" alt="Register Icon"></div>
+                            <div><p>Teams</p></div>
+                        </div>
+                        <div class="adminAddTeam leftFooter">
+                       	 	<div class="contImageFooter"><img src="Images/addGroup.png" alt="Register Icon"></div>
+                            <div><p>Add Team</p></div>
+                        </div>
+                        	
+                 	</div>
+                   
+			   </div><!-- /footer -->
+               
+    	
+          </div> <!-- this is the end of my page -->
+     
+   
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+   <div data-role="page" data-theme="a" id="updateAdmin">
+        
+
+   
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert">
+                	<a href="#pageAdmin" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo">User Info</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      		
+                        
+                        
+                        <div id="containerUpdateUser">
+                        
+                           
+                            
+                            <div id="linePhoto">
+                                    <div id="leftLinePhoto"><img src="" id="imgUserUpdate"/></div>
+                                        <div id="rightLinePhoto">
+                                          <input type="text" id="FirstNameToUpdate" placeholder="First Name" />
+                                         <input type="text" id="LastNameToUpdate" placeholder="Last Name" />
+                                        </div>
+                                    
+                                
+                                </div>
+                        
+                            <input type="hidden" id="idUserToUpdate" />
+                           
+                            <input type="email" id="EmailToUpdate" placeholder="Email" />
+                            <input type="tel" id="PhoneToUpdate" placeholder="Phone" />
+                            <input type="text" id="TwitterToUpdate" placeholder="Twitter" />
+                            <input type="text" id="FBToUpdate" placeholder="Facebook" />
+                            <select id="searchByRolePanel2">  </select>
+                                                
+                            <button id="buttonUpdateUser">Update Info</button>
+                           
+                        </div>
+             
+                    
+        
+   
+             	</div> <!-- this is the end of my content -->
+                
+     
+              
+          </div> <!-- this is the end of my page -->
+     
+     
+     
+     
+   
+     
+     
+     
+     
+     
+       
+    </body>
+</html>
+
+<script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		 
+	}
+ </script>
+
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/adminMember.js"></script>

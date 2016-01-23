@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>BuySpy</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body id="bg">
+<div class="container-fluid">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="../index.php">Home</a></li>
+					<li><a href="home.html">Database Design - Home</a></li>
+					<li><a href="sciencetap.html">Sciencetap</a></li>
+					<li class="active"><a href="buyspy.html">BuySpy</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+		
+	<h1>BuySpy Database Design</h1>
+
+	<ul>
+		<li>Database: _BuySpy</li>
+		<li>Collections: Users</li>
+	</ul>
+
+	<h2>Key Terms</h2>
+	<dl>
+		<dt>Users Collection</dt>
+		<dd>The main document that stores all information.  Each user is a separate and unique object in the collection</dd>
+		<dt>User Object</dt>
+		<dd>An object in the Users Collection.  It contains the user's account info</dd>
+		<dt>Active Items Array</dt>
+		<dd>This array belongs to a user.  It is an array of objects that contains items that have been placed on the spy list. These items will notify the user according to the time interval if a change has occurred in the results array</dd>
+		<dt>Spy List</dt>
+		<dd>Another name for the Active Items Array</dd>
+		<dt>Recent Items Object</dt>
+		<dd>This array will store the users last 10 items, if an item is recovered, the user can pick up right where they left off</dd>
+		<dt>Archived Items Object/Collection</dt>
+		<dd>This Collection is for big data purposes only.  The user can not see these values.  We can use this for data analysis.  Thinking about exporting this to another collection and stripping the user specific information to avoid privacy concerns</dd>
+	</dl>
+
+	<h3>A Working Example</h3>
+	<p>
+		A user downloads the BuySpy application and sets up their account.  The user selects the category of items that they want to search. The categories will be modeled off of Amazon's Categories.  The user searches for the item.  Based on the category, the app queries 'WhiteListed' sites and then does a raw search using a search engine to gather results.  The results are gathered, duplicates from the same sites are removed.  The default display will be the first 10 results ordered by lowest price.  The user will have the option of sorting by "Well-Known" Vendors i.e. Amazon before someone on ebay.  The user now has the option of "Spying" on this item.  This means that the app will save this search and by default every 10 minutes update the results and notify the user if there are any changes.  All updates will be done at the same time.  So if a user "Spys" an item, then 2 minutes later "Spys" another item, the first item will notify if there are any changes 10 minutes later, and the second 8 minutes later, then 10 from there on out. This process continues until the user removes the item from the spy list or stops the app.
+	</p>
+
+	<p>
+		Below shows a user who has searched for "Dell XPS Desktop" under the computers category, and "Healthy Foods" under the books category.  The user has performed other queries, but only added these two to the "Spy List".  The user has left the default notification interval at 10 min
+	</p>
+
+	<h3>An Example User Document</h3>
+	<pre>
+{
+	{
+		"_id": "0000000001",
+		"user":{
+			"name": "shopaholic222",
+			"pass": encrypted pass,
+			"email": mark.dolan@temple.edu,
+		},
+		"time_interval": "600000" (10 minutes),
+		"Active Items":[
+			{
+				"category": "Computers",
+				"query": "Dell XPS Desktop"
+				"results":[
+					{ 
+						"name": "Dell - XPS Desktop - Intel Core i7 - 8GB Memory - 1TB Hard Drive - Black",
+						"site": "http://www.adorama.com/DEX87002812B.html?gclid=CPfhl4eu2MYCFZWRHwod6DME6w",
+						"price": "1,049.99",
+						"time": "10:54:32 07/13/15"
+					},
+					...
+					{
+						"name": "Dell TM XPS 8700 Desktop Computer with 4th Gen Intel Core Processor, X8700-1264BLK",
+						"site": "http://www.walmart.com/...",
+						"price": "1,075.99",
+						"time": "10:55:45 07/13/15"
+					}
+					]
+			},
+			{
+				"category": "Books",
+				"query": "Healthy Foods"
+				"results":[
+					{ 
+						"name": "Eat To Live Cookbook",
+						"site": "http://play.google.com/store/books/...",
+						"price": "9.99",
+						"time": "11:24:32 07/13/15"
+					},
+					...
+					{
+						"name": "Wheat Belly...",
+						"site": "http://www.audible.com/pd/Health-Fitness/Wheat-Belly-Audiobook/...",
+						"price": "20.97",
+						"time": "11:31:45 07/13/15"
+					}
+					]
+			}
+		]
+	},
+
+	{
+		"_id": "0000000002",
+
+		"user":{
+		},
+		"time_interval": "600000" (10 minutes),
+		"Active Items":[
+		]
+	}
+}
+</pre>
+
+
+	<address>
+		<strong>Mark Dolan</strong><br>
+		1936 Girard Ave<br>
+		Philadelphia, PA 19130<br>
+		<abbr title="Phone">P:</abbr> (484) 784-7894<br>
+		<a href="mailto:#">mark.dolan@temple.edu</a>
+	</address>
+	
+</div>
+
+	<script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>
+

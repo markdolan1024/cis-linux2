@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+		<title> Dolan Test jquery</title>
+		<meta name="Description" content="Mark Dolan's Temple University Astro Page">
+		<meta charset="utf-8">
+
+<!-- javascript -->
+		<script src="../assets/js/jquery-1.11.2.min.js"></script>
+		<script src="../assets/js/dolan_jquery.js"></script>
+<script>
+		showstuff = function (){
+				var arr = document.getElementsByClassName("photo");
+				var x;
+				var i = 0;
+				$.each(arr, function(index, value){
+						var box = "check" + index;
+						console.log(box);
+						 var bool = document.getElementById(box).checked;
+						console.log(bool);
+						if(bool){
+								x = "<pre>The new text is " + value.value + "</pre>";
+								$('#container').append(x);
+						}
+				});
+		}
+
+		downloadPhotos = function (){
+				var arr = document.getElementsByClassName("photo");
+				var x;
+				var i = 0;
+				$.each(arr, function(index, value){
+						var box = "check" + index;
+						console.log(box);
+						 var bool = document.getElementById(box).checked;
+						console.log(bool);
+						if(bool){
+							var dataString = 'photo='+value.value;
+							$.post('http://www.sciencetap.us/assets/App/PHP/download_photo.php',{photo: value.value}, function(data){
+								alert("data loaded");
+							});
+							// $.ajax({ type:"POST", url: URL +'PHP/download_photo.php', data: dataString, success:function(data){ if(data.Status == 'success'){ console.log("PHP download_photo success"); }else{ console.log("download_photo failed"); } } });
+						}
+				});
+		}
+
+
+		displayPhotos = function(Observations_Id){
+
+        var dataString2 = 'Site_Id='+Observations_Id+'&DisplayPhotos=true';
+		var Url = "http://www.sciencetap.us/assets/App/";
+
+        $.ajax({
+        type: "POST",
+        url: Url+'PHP/FunctionsMobile2.php',
+        data: dataString2,
+        async: "false",
+        dataType:"Json",
+        success: function(data) {
+
+                if (data.Status == 'success'){
+
+                        var Photo_Id            = data.Photo_Id;
+                        var link_Img            = data.link_Img;
+                        var Date_Img            = data.Date_Img;
+                        var Time                        = data.Time;
+                        var Lat_Photo           = data.Lat_Photo;
+                        var Lon_Photo           = data.Lon_Photo;
+                        var Observations_Id = data.Observations_Id;
+                        var Site_Id             = data.Site_Id;
+
+                        console.log(data.Status);
+
+                        $('#photoDisplay').html("");
+                        $('#photo').html("");
+
+                        $('#photoDisplay').css('-webkit-box-pack','start');
+                        for( var i in Photo_Id){
+
+							var link = Url + link_Img[i];
+							link = link.replace("//assets", "/assets");
+                        $('#photoDisplay').append(
+
+                        '<div id="loopImageCarousel" id="photo' + i + '">' +
+						'<input type="checkbox" name="photo' + i + '" id="check' + i + '" class="photo" ' + 
+							'value="' + link + '">' + '&nbsp' +
+						'<span>' + Date_Img[i] + " " + Time[i] + '</span>'+'<br>'+
+                        '<a href="'+Url+link_Img[i]+'" class="photo"><img src="'+Url+link_Img[i]+'"  alt="imgCarousel"></a>'+
+                        '</div>'
+
+                        );
+
+                        } // end foor loop
+                        $('#photoDisplay').append('<br>');
+                }else{
+                        console.log("Photo query failed");
+						$('photoDisplay').html("");
+                        $('#photoDisplay').css('-webkit-box-pack','center');
+                        $('#photoDisplay').append(
+                        '<h1 class="titleFormMeasuresImg"> No images on this observations</h1>'
+                        );
+
+                }
+        }
+});
+return false;
+} // end displayPhotos 
+
+</script>
+	
+<!-- Bootstrap -->
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../assets/css/custom.css" rel="stylesheet">
+		<style>
+
+		iframe{
+			display: none;
+		} 
+
+			#loopImageCarousel{
+				display: inline-block;
+				margin: 2px;
+				border-style: dashed;
+				border-width: 1px;
+				padding: 3px;
+			}
+
+			#photoDisplay img{
+				width: 100px;
+				height: 100px;
+				border-style: solid;
+				border-width: 1px;
+				margin: 2px;
+			}
+			#photoDisplay span{
+				font-size: x-small;
+				line-height: 50%;
+			}
+		</style>
+</head>
+<body>
+<p id="popup" href="http://astro.temple.edu"> Popup for window.open </p>
+<p id="container"> Container </p>
+<form  id="photoDisplay">
+</form>
+<input name=buttonExecute" onclick="downloadPhotos()" type="button" value="Execute"/>
+
+<script> displayPhotos(33); </script>`
+		<!-- javascript -->
+		<script src="../assets/js/bootstrap.min.js"></script>
+		<script> $('a.btn-info').tooltip() </script>
+		<script src="../assets/js/respond.js"></script>
+		<script> $(document).ready(function(){
+
+				$('#popup').click(function(event){
+						window.open($(this).attr("href"), "popupWindow", "width=600,height=600,scrollbar=yes");
+						return false;
+				});
+
+		});
+</script>
+
+<script>
+		var $idown;
+		downloadURL  = function(url){
+			if($idown){
+				$idown.attr('src',url);
+			}else{
+				$idown = $('<iframe>', {id:'idown',src:url}).hide().appendTo('body');
+			}
+		}
+
+		function ajax_download(url, data, input_name){
+				var $iframe, iframe_doc, iframe_html;
+
+				if(($iframe = $('#download_iframe')).length === 0){
+						$iframe = $("<iframe id='download_iframe'" + " style='display: none' src='about:blank'></iframe>").appendTo("body");
+				}
+
+				iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+				if(iframe_doc.document){
+						iframe_doc = iframe_doc.document;
+				}
+
+				iframe_html = "<html><head></head><body><form method='POST' action='" +
+				url +"'>" + "<input type=hidden name='" + input_name + "' value='" +
+				JSON.stringify(data) + "'/></form>" + "</body></html>";
+
+				iframe_doc.open();
+				ifrae_doc.write(iframe_html);
+				$(iframe_doc).find('form').submit();
+		}
+
+</script>
+			
+
+</body>
+</html>

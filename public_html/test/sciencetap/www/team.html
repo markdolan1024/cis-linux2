@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ScienceTap - Site</title>
+
+	<!-- JavaScript -->
+		<script src="assets/js/jquery-1.11.2.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+		<script src="assets/js/teamFunctions.js"></script><!-- -->
+		<script>
+		var EmailUser = window.localStorage.getItem('Email');
+		var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+			window.open("index.html", '_self', 'location=yes');
+			}	
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('#team').addClass("active");
+			});
+		</script>
+
+	<!-- BootStrap and CSS-->
+		<!-- <link rel="stylesheet" type="text/css" href="css/index.css" />-->
+		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/respond.js"></script>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="assets/css/custom.css"/>
+</head>
+<body>
+<div class="container">
+	<script>$(".container").append(nav_string.join(" "));</script>
+
+	<div data-role="content">
+		<div id="containerUser">
+		</div>
+	</div>
+	<div data-role="page" data-theme="a" id="pageTeamInfo">
+		<div data-role="panel" id="EmailPanel" data-display="overlay" data-position="right">
+			<div id="containerPanel"> 
+				<div id="contTitlePanel">
+					<div><p>Email:</p></div>
+				</div>
+				<hr>
+				<div id="containerEmailPanel">
+					<input type="text" placeholder="To" id="toEmailPanel" />
+					<input type="text" placeholder="subject" id="subjectEmailPanel" />
+					<textarea rows="40" cols="5" id="bodyEmailPanel"></textarea>
+					<button type="submit" id="sendEmailPanel">Send</button>
+				</div>
+			</div> <!-- end containerPanel -->
+		</div><!-- /panel -->
+                <div data-role="header" data-theme="z" id="HeaderTeamInfo">
+                	<a href="#pageTeam" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo"></p>
+                    </div>
+                </div> <!-- this is the end of my header -->
+                <div data-role="content">
+			<div id="containerTeamUser">
+				<div id="Line1InfoUSer"> 
+					<div id="leftLine1InfoUSer"><img src="Images/cameraIcon2.png" alt="CamIcon" id="logoTeam" /></div><!-- end leftLine1InfoUSer -->
+					<div id="rightLine1InfoUSer">
+						<div class="topRightLine1InfoUSer"><p class="labelInfoTeam">Description: </p> <p id="descriptionInfoTeam"></p>  </div>
+						<div class="topRightLine1InfoUSer"><p class="labelInfoTeam">Remark: </p> <p id="RemarkInfoTeam"></p> </div>
+						<div class="topRightLine1InfoUSer"><p class="labelInfoTeam">Leader: </p> <p id="LeaderInfoTeam"></p> </div>
+						<div class="topRightLine1InfoUSer"><p class="labelInfoTeam">URL: </p> <p id="URLInfoTeam"></p> </div>
+					</div><!-- end rightLine1InfoUSer -->
+				</div>
+				<div id="titleLine">
+					<p id="titleMembers">Team Members</p>
+				</div>
+				<hr>
+				<div id="infoMemberTeamBox"> </div> <!-- end infoMemberTeamBox -->
+			</div> <!-- end of my containerUser -->
+		</div> <!-- this is the end of my content -->
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/teamFunctions.js"></script>
+<script>
+ 	if(User_Type == 4){
+		$('#teamMenu').after( '<li><a href="forms.html">Forms</a></li>'+ '<li><a href="admin.html">Admin</a></li>');
+		$('#team').after( '<li><a href="forms.html">Forms</a></li>'+ '<li><a href="admin.html">Admin</a></li>');
+	}
+</script>
+
+

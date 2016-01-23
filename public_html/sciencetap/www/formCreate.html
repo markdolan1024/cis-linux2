@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        
+        
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+        
+        <title>ScienceTap</title>
+         
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+       
+      	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+          <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel").panel("close");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel").panel("open");
+				});
+		</script>
+            
+           
+
+    </head>
+    
+    <body>
+    
+    
+    <div data-role="page" data-theme="a" id="createForm">
+    
+    
+    	 <div data-role="panel" id="panelPageForm" data-display="overlay">
+                
+                    <div id="containerPanel"> 
+                        <!-- here I need to create the menu of m panels. -->
+                        <div id="contLogo">
+                             <div><img src="" id="ImageUser" alt="logoTemple"></div>
+                             <div><p id="NameUser"></p></div>
+                        </div>
+                        <hr>
+                        <div id="contMenu">
+                        
+                            
+                            <ul id="menuPanel">
+                            	<li id="homeTag"><img src="Images/Home_Icon.png" alt="login Icon"> <p>Home</p></li>
+                             	<li id="dataTag"><img src="Images/addData.png" alt="login Icon"> <p>Projects</p></li>
+                              	<li id="mapTag"><img  src="Images/MapIcon.png" alt="login Icon"> <p>Map</p></li>
+                              	<li id="teamTag"><img src="Images/members_icon.png" alt="login Icon">	<p>Teams</p></li>
+                              	<!-- <li><img src="Images/Search.png" alt="login Icon"> <p>Search</p></li> -->
+                              	<li id="logoutTag"><img src="Images/logoutIcon.png" alt="logout Icon"> <p>Logout </p></li>
+                           </ul>
+                            
+                        </div>
+                    
+                    
+                    </div>
+                        
+                        
+                </div><!-- /panel -->
+    
+        
+        <div data-role="panel" id="myPanel" data-display="overlay" data-position="right">
+        
+        	<div id="containerPanel"> 
+            	<!-- here I need to create the menu of m panels. -->
+                <div id="contLogo">
+                     <div id="logoForms"><p>Forms</p></div>
+                
+                </div>
+                <hr>
+                <div id="contMenu">
+                
+                	
+                	<ul id="menuPanel">
+                      <li id="ListForm"><img src="Images/Icons/ListFormWhite.png" alt="list Icon"> <p>List Forms</li>
+                      <li id="CreateForm"><img src="Images/Icons/addFormList.png" alt="Add Form Icon"><p>Create Form</p></li>
+                      <li id="EditForm"><img src="Images/Icons/updateForm.png" alt="Add Form Icon"><p>Edit Forms</p></li>
+                    </ul>
+                	
+                </div>
+            
+            
+            </div>
+        		
+                
+		</div><!-- /panel -->
+        
+          
+                <div data-role="header" id="HeaderBar" >
+                	<a href="#panelPageForm"> <img src="Images/barsIcon.png" alt="iconBars"></a>
+                	<a href="#myPanel"> <img src="Images/ProjectsWhite.png" alt="iconForm"></a>
+                      <div id="infoUser">
+                    	<p>Create Form</p>
+                    </div>
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+                
+                	<div id="createFormBox">
+                    		
+                            <div id="FirstStepFormName">
+                            		<div class="lineFormName">
+                                    	<label> Form Name</label>
+                                    </div><!-- end labelFormName-->
+                                    <div class="lineFormName">
+                                    	<input type="text" id="formName" />
+                                    </div><!-- end labelFormName-->
+                                    
+                                    <hr>
+                                    
+                                   
+                                     <div class="lineFormName">
+                                            <label>Related Projects</label>
+                                     </div><!-- end labelFormName-->
+                                     
+                                     
+                                <div id="LoopCheckProjects">
+                                
+                                   <!-- display info projects with ajax-->  
+                              
+                           
+                                    
+                                 </div><!-- end LoopCheckProjects -->    
+                                        <hr>
+                                   
+                                    
+                                    
+                                    <div class="lineFormName">
+                                    	<button type="button" id="btnCreateForm"> Create Form</button>
+                                    </div><!-- end labelFormName-->
+                            </div><!-- end FirstStemFormName -->
+                           
+                           
+                           
+                           
+                            <div id="SeconStepFormColumns">
+                           		 
+								<div class="twoInputHorizontal2">
+                                	<div class="lineFormName2">
+                                    	<label>Field Name</label>
+                                    </div><!-- end labelFormName-->
+                                    <div class="lineFormName">
+                                    	<input type="text" id="colName" />
+                                    </div><!-- end labelFormName-->
+                                 </div><!-- end twoInputHorizontal -->
+                                 
+                                 <div class="twoInputHorizontal">
+                                 
+                                 	<div class="leftTwoInputHorizontal">
+                                    
+                                        <div id="lineLabelNumber">
+                                            <label>Number</label>
+                                        </div><!-- end labelFormName-->
+                                        <div class="lineRadioButtons">
+                                            <input type="radio" value="1" name="Type_col" id="Type_col" />
+                                        </div><!-- end labelFormName-->
+                                        
+                                        <div id="lineLabelText">
+                                            <label>Text</label>
+                                        </div><!-- end labelFormName-->
+                                        <div class="lineRadioButtons">
+                                            <input type="radio" value="2"  name="Type_col" id="Type_col" />
+                                        </div><!-- end labelFormName-->
+                                        
+                                        <div id="lineLabelDate">
+                                            <label>Date</label>
+                                        </div><!-- end labelFormName-->
+                                        <div class="lineRadioButtons">
+                                            <input type="radio" value="3"  name="Type_col" id="Type_col" />
+                                        </div><!-- end labelFormName-->
+                                        
+                                        <div id="lineLabelTime">
+                                            <label>Time</label>
+                                        </div><!-- end labelFormName-->
+                                        <div class="lineRadioButtons">
+                                            <input type="radio" value="4"  name="Type_col" id="Type_col" />
+                                        </div><!-- end labelFormName-->
+                                        
+                                    </div> <!-- end leftTwoInputHorizontal -->
+                                    
+                                    <div class="rightTwoInputHorizontal">
+                                    
+                                        <div id="lineLabelDropDown">
+                                            <label>Drop Down</label>
+                                        </div><!-- end labelFormName-->
+                                        <div class="lineRadioButtons">
+                                            <input type="radio" value="5"  name="Type_col" id="Type_col" onClick="DropDownValues()" />
+                                        </div><!-- end labelFormName-->
+                                  
+                                    	
+                                    </div><!-- end rightTwoInputHorizontal -->
+                                   
+                                  
+                                 </div><!-- end twoInputHorizontal -->
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <div class="lineButtons">
+                                 		<input type="hidden" id="Form_Id">
+                                        <input type="hidden" id="Form_Name">
+                                    	<button type="button" id="btnAddField"> Add field</button>
+                                 </div><!-- end labelFormName-->
+                           </div><!-- end SeconStepFormColumns -->
+                        	
+                            
+                            
+                            
+                            <div id="containerFields">
+                            
+                            	<div id="topContainerField"><p id="TitleFieldCont">Nameform Fields</p></div>
+                                
+                               	<div id="containerLoopFields">
+                                		<!-- displaying filed by ajax -->
+                                 </div> <!-- end containerLoopFields -->
+                                 
+                               
+                               <div id="BottonContainerField">
+                               		<a href="#ResultForm" data-transition="slideup" onClick="displayFormFormat();"><img src="Images/viewForm.png" alt="view form"/></a>
+                               </div>  <!-- BottonContainerField -->
+                                 
+                           </div><!-- end containerFields -->
+                                 
+                                     
+                                
+                                
+                    </div><!-- end createFormBox -->
+                
+                
+                 
+              
+                </div> <!-- this is the end of my content -->
+  
+  </div> <!-- this is the end of my page -->
+     
+       
+       
+       
+   <div data-role="page" data-theme="a" id="ResultForm">
+        
+
+   
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert" data-position="fixed">
+                	<a href="#createForm" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo"><p id="formNameResult"></p></p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      		
+                         <div id="containerFormDisplay">
+                        	
+                            	<div class="twoLabelAndInput">
+                                
+                                		<!-- display form with ajax -->
+                                
+                                </div><!-- end twoLabelAndInput -->
+                        
+                        
+                        
+                        </div> <!-- end containerUpdateUser -->
+                          
+   
+             	</div> <!-- this is the end of my content -->
+                
+     
+              
+          </div> <!-- this is the end of my page -->
+     
+     
+     
+       
+       
+       
+     
+   <script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		 
+	}
+ </script>
+ 	<script type="text/javascript" src="js/myFunctions.js"></script>
+  
+  <script src="js/formFunctionsCreate.js"></script>
+   <script type="text/javascript" src="js/navigationForm.js"></script>
+  
+    </body>
+</html>
+
+ 
+ 

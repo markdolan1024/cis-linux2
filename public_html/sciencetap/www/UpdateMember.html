@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+
+        
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+
+         <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel").panel("open");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel").panel("close");
+				});
+		</script>
+   
+           
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a">
+          
+                <div data-role="header" data-theme="z" id="HeaderBar">
+                	<a href="admin.html" data-ajax="false"> <img src="Images/Back.png" alt="back"/></a>
+                      <div id="infoUser">
+                    	<p>Register</p>
+                    </div>
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+                
+              		<div id="containerLogin">
+                    	<div id="linePhoto">
+                        	<div id="leftLinePhoto"><img src="" id="imgUserRegistration" /></div>
+                            <div id="rightLinePhoto">
+                                <input type="text" id="name" placeholder="First Name">
+                                <input type="text" id="last" placeholder="Last Name">
+                            </div>
+                        
+                        
+                        </div>
+                        	
+                        	
+                        	<input type="email" id="email" placeholder="Email">
+                            <input type="tel" id="cellphone" placeholder="Cellphone">
+                            <input type="text" id="Twiter" placeholder="Twiter">
+                            <input type="text" id="Facebook" placeholder="Facebook">
+                            <select id="searchByRolePanel">
+                                    	<option value="1">Web user</option>
+                                        <option value="2">Administrator</option>
+                            </select>
+                                	
+                            <button id="buttonRegister">Update Info</button>
+                        
+                    
+                     </div>
+               </div> <!-- this is the end of my content -->
+               
+       
+       
+                
+        </div> <!-- this is the end of my page -->
+     
+    </body>
+</html>
+
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/registration.js"></script>

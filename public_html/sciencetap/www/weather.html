@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+
+        
+        <title>ScienceTap</title>
+         
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        
+      	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+          <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel").panel("open");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel").panel("close");
+				});
+		</script>
+            
+           
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a">
+        
+        <div data-role="panel" id="myPanel" data-display="overlay">
+        
+        	<div id="containerPanel"> 
+            	<!-- here I need to create the menu of m panels. -->
+                <div id="contLogo">
+                     <div><img src="" id="ImageUser" alt="logoTemple"></div>
+                     <div><p id="NameUser"></p></div>
+                </div>
+                <hr>
+                <div id="contMenu">
+                
+                	
+                	<ul id="menuPanel">
+                    	<li id="homeTag"><img src="Images/Home_Icon.png" alt="login Icon"> <p>Home</p></li>
+                    	<li id="dataTag"><img src="Images/addData.png" alt="login Icon"> <p>Projects</p></li>
+                      	<li id="mapTag"><img  src="Images/MapIcon.png" alt="login Icon"> <p>Map</p></li>
+                      	<li id="teamTag"><img src="Images/members_icon.png" alt="login Icon">	<p>Teams</p></li>
+                      	<!-- <li><img src="Images/Search.png" alt="login Icon"> <p>Search</p></li> -->
+                      	<li id="logoutTag"><img src="Images/logoutIcon.png" alt="logout Icon"> <p>Logout </p></li>
+                   </ul>
+                	
+                </div>
+            
+            
+            </div>
+        		
+                
+		</div><!-- /panel -->
+        
+          
+                <div data-role="header" id="HeaderBar" >
+                	<!-- <a href="#myPanel"> <img src="Images/barsIcon.png" alt="iconBars"></a> -->
+                      <div id="infoUser">
+                    	<img src="Images/logoScienceTap.png" alt="logotransparent" />
+                    </div>
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+                
+                  
+                  <div id="contenPrincipalMenu">
+                  
+                  		<ul id="menuPrincipalUl">
+                        	<li id="TopPrincipalMenu"><img src="Images/addDataBlue.png" alt="iconMenu"> <p> Project</p></li>
+                            <li id="mapPrincipalMenu"><img src="Images/MapIconBlue.png" alt="iconMenu"> <p>Map</p></li>
+                            <li id="teamPrincipalMenu"><img src="Images/members_iconBlue.png" alt="iconMenu"> <p>Team</p></li>
+                            <li id="logoutPrincipalMenu"><img src="Images/logoutIconBlue.png" alt="iconMenu"> <p>Logout</p></li>
+                           
+                        
+                        </ul>
+                  			
+                  
+                  
+                  </div><!-- end contenPrincipalMenu -->
+              
+              <!--
+                <div id="contWeather">
+                	<div id="cityState">Philadelphia, PA</div>
+                    <div id="weather">00.0</div>
+                    <div id="weatherType">Cloudy</div>
+                </div> -->    
+                 
+              
+               
+               
+               
+                </div> <!-- this is the end of my content -->
+  
+          </div> <!-- this is the end of my page -->
+     
+       
+    </body>
+</html>
+
+ 
+ 
+ <script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		
+		
+		
+		$('#menuPrincipalUl').append( 
+			'<li id="formsPrincipalMenu"><img src="Images/ListFormBlue.png" alt="iconMenu"> <p>Forms</p></li>'+
+            '<li id="BottomPrincipalMenu"><img src="Images/admin_Icon_Blue.png" alt="iconMenu"><p> Admin </p></li>'
+		);
+		 
+	}
+ </script>
+ <script type="text/javascript" src="js/myFunctions.js"></script> 
+<script>
+
+	onload = function(){
+		//geoloc();
+	}
+	
+
+		
+</script>

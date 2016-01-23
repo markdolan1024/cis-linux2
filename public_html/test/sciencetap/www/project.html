@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ScienceTap - Project</title>
+
+	<!-- JavaScript -->
+		<script src="assets/js/jquery-1.11.2.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+		<script src="assets/js/projectFunctions.js"></script><!-- -->
+		<script>
+		var EmailUser = window.localStorage.getItem('Email');
+		var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+			window.open("index.html", '_self', 'location=yes');
+			}	
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('#data').addClass("active");
+			});
+		</script>
+
+	<!-- BootStrap and CSS-->
+		<!-- <link rel="stylesheet" type="text/css" href="css/index.css" />-->
+		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/respond.js"></script>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="assets/css/custom.css"/>
+</head>
+<body>
+<div class="container">
+	<script>$(".container").append(nav_string.join(" "));</script>
+
+	<div><b>Name:&nbsp</b><span id="Stream_Name_p"></span></div>
+
+	<div><b>Latitude:&nbsp</b><span id="Stream_Lat_p"></span></div>
+
+	<div><b>Longitude:&nbsp</b><span id="Stream_Lon_p"></span></div>
+
+	<div><b>Date:&nbsp</b><span id="Stream_Date_p"></span></div>
+
+	<div><b>Time:&nbsp</b><span id="Stream_Time_p"></span></div>
+
+	<div><b>By:&nbsp</b><span id="Stream_TeamName_p"></span></div>
+
+	<table class="table table-hover" id="containerSites">
+		<thead>
+			<tr>
+				<th>Sites</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody id="containerSiteLoop"></tbody>
+	</table>
+
+	<div class="row FooterMenuAddSites">
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newSiteModal">New Site</button>
+	</div> 
+	<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageUpload" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="imageModalTitle">Upload an Image</h3>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="Site ID" class="control-label">Site ID:</label>
+							<label for="Site" class="control-label" id="ImageSiteId"></label>
+						</div>
+						<div class="form-group">
+							<label for="Observation ID" class="control-label">Observation ID: (Optional)</label>
+							<input type="text" class="form-control" id="ImageObId" value="0">
+						</div>
+						<div class="form-group">
+							<label for="Date" class="control-label">Date:</label>
+							<input type="date" class="form-control" id="ImageDate" required>
+						</div>
+						<div class="form-group">
+							<label for="Time" class="control-label">Time:</label>
+							<input type="time" class="form-control" id="ImageTime" required>
+						</div>
+						<div class="form-group">
+							<label for="Latitude" class="control-label">Latitude:</label>
+							<input type="text" class="form-control" id="ImageLat" required>
+						</div>
+						<div class="form-group">
+							<label for="Longitude" class="control-label">Longitude:</label>
+							<input type="text" class="form-control" id="ImageLon" required>
+						</div>
+						<div class="form-group">
+							<label for="ImageFile">Select an Image</label>
+							<input type="file" id="ImageFile" required>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Upload Image</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddObservation" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="imageModalTitle">Select a Form</h3>
+				</div>
+				<div class="modal-body" id="AddModalBody">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="ExcelModal" tabindex="-1" role="dialog" aria-labelledby="Download Excel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="imageModalTitle">Download Excel</h3>
+				</div>
+				<div class="modal-body" id="ExcelModalBody">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script>
+	if(User_Type == 4){
+		$('#teamMenu').after( '<li><a href="forms.html">Forms</a></li>'+ '<li><a href="admin.html">Admin</a></li>');
+		$('#team').after( '<li><a href="forms.html">Forms</a></li>'+ '<li><a href="admin.html">Admin</a></li>');
+	}
+</script>

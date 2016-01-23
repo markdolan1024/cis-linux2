@@ -1,0 +1,19 @@
+#bg{
+	background:linear-gradient(#914747, #bbbbbb) no-repeat;
+}
+body{
+	padding-top: 70px;
+	color: black;
+}
+
+.centerImage{
+	margin: 0 auto;
+}
+
+.mainImg{
+	width: 95%;
+}
+.mainImgTest{
+	margin: 5px;
+	width: 95%;
+}

@@ -1,0 +1,258 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);	
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);	
+
+#iwhtml
+{
+	height: 200px;	
+	
+}
+
+#iwContent
+{
+		width: 200px;
+		padding: 2px,2px,2px,2px;
+	
+}
+
+#iwFooter
+{
+	padding: 50px,50px,50px,50px;
+}
+
+#image{
+	height: 200px;
+	width: 200px;
+	display: inline;
+	border-radius: 25px;
+}
+
+#myPanel{
+	
+	background-color: white;
+	
+}
+
+#site{
+	display: -webkit-box;
+	-webkit-box-align: center;
+border-bottom: 1px dashed gray;
+height: 30px;
+	
+}
+
+
+#listCont{
+	width: 240px;
+	height: 100%;
+}
+
+/*#mapContainer div {
+  flex: 1;
+}
+*/
+
+#legend {
+  height: 50px;
+  width: 70px;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #000;
+  opacity: 0.9;
+}
+#legend h3 
+{
+  margin-top: 0;
+}
+
+#legend img 
+{
+  vertical-align: middle;
+  height: 22px;
+  width: 22px;
+}
+#pac-input {
+
+  background-color: #fff;
+  padding: 0 11px 0 13px;
+  width: 100%;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+}
+
+#pac-input:focus 
+{
+  border-color: #4d90fe;
+  margin-left: -1px;
+  padding-left: 14px;  /* Regular padding-left + 1. */
+  width: 100%;
+}
+
+.pac-container 
+{
+	padding-top: 50px;
+  	font-family: Roboto;
+}
+
+#type-selector 
+{
+  color: #fff;
+  background-color: #4d90fe; 
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label 
+{
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#imageContainer
+{
+	text-align:center;
+	width: 100%;
+	height: 100%;
+}
+
+#photoTile
+{
+ padding-right: 3px;
+ padding-bottom: 3px;
+ display: inline;	
+}
+
+#photo
+{
+	width: 75px;
+	height: 75px;	
+}
+
+#photoSingle
+{
+	width: 320px;
+	height:490px;
+	position: absolute;
+	z-index: 0;
+}
+
+#photoCont{
+	width: 300px;
+	height: 500px;
+	position: absolute;
+	z-index: 0;
+	
+}
+#nextPhoto
+{	
+	
+	z-index: 1;
+	position: absolute;
+	padding-top: 190px;
+	padding-left: 195px;
+}
+
+#prevPhoto
+{
+	z-index: 1;
+	position: absolute;
+	padding-top: 190px;
+	padding-left: 0px;
+}
+
+#singleCont
+{
+	width: 351px;
+	height: 461px;
+	position: absolute;
+	z-index: auto;	
+	
+}
+
+#infoPhoto{
+	position: absolute;
+	z-index: 1;
+	background-color: grey;
+	opacity: 0.8;
+	color: white;
+	border-radius: 10px;
+	font-size: 14px;
+	width: 140px;
+	height: 60px;
+	text-align: center;
+	margin-left: 220px;
+	margin-top: 390px;
+}
+
+/* iPad Portrait */
+@media only screen and (device-width: 768px) {
+  /* For general iPad layouts */
+
+	
+	
+#photoCont
+{
+	width: 100%;
+	height: 100%;
+}
+
+#photoTile
+{
+ padding-right: 3px;
+ padding-bottom: 3px;
+ display: inline;	
+}
+
+#photo
+{
+	width: 150px;
+	height: 150px;	
+}
+
+#photoSingle
+{
+	width: 900px;
+	height: 1000px;
+	position: absolute;
+	z-index: 0;
+}
+#nextPhoto
+{	
+	
+	z-index: 1;
+	position: absolute;
+}
+
+#prevPhoto
+{
+	z-index: 1;
+	position: absolute;
+}
+
+#singleCont
+{
+	position: absolute;
+	z-index: auto;	
+	
+}
+
+#infoPhoto{
+	position: absolute;
+	z-index: 1;
+	background-color: grey;
+	opacity: 0.8;
+	color: white;
+	border-radius: 10px;
+	font-size: 14px;
+	width: 140px;
+	height: 60px;
+	text-align: center;
+	margin-left: 600px;
+	margin-top: 750px;
+}
+
+
+}

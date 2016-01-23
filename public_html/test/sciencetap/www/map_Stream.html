@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+  
+        
+        <title>ScienceTap</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var idUserLogged	=	window.localStorage["idUser"];
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+		</script>
+        
+      
+          <script>
+        	$(document).on("swiperight", function(event, ui) {
+				$("#myPanel2").panel("close");	
+				});
+        </script>
+        
+        <script>
+        	$(document).on("swipeleft", function(event, ui) {
+				$("#myPanel2").panel("open");
+				});
+		</script>
+       
+
+    </head>
+    
+    <body>
+    
+     
+     
+     
+     
+   <div data-role="page" data-theme="a" id="pageStreamInsert">
+        
+
+   
+                <div data-role="header" data-theme="z" id="HeaderStreamInsert">
+                	<a href="#pageTeam" data-transition="slidedown" id="buttonCloseTeamInfo">close</a>
+                    <div id="infoTeam">
+                    	<p class="TeamNameInfo"></p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      			
+         			 
+                      		
+                           <div id="mapCanvas">
+                           
+                           </div> <!-- end  map-canvas -->
+                      	<ul id="mapButtons">
+                        	<li id="refreshBtn">Refresh</li>
+                            <li id="traficBtn">Trafic</li>
+                            <li id="weatherBtn">Weather</li>
+                        </ul>
+                      
+                           
+                    
+        
+   
+             	</div> <!-- this is the end of my content -->
+                
+                
+                
+             
+                
+                <div data-role="footer" data-position="fixed" id="footerStream">
+               		<!-- here display the menu with jquery to check if there are the leader -->
+                      	
+                 	
+                   
+			   </div>
+               
+                
+              
+          </div> <!-- this is the end of my page -->
+     
+     
+     
+     
+   
+     
+       
+    </body>
+</html>
+
+
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/map_Stream.js"></script>
+
+

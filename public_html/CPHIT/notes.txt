@@ -1,0 +1,29 @@
+After moving computer run
+gpupdate /force
+this updates the computer to the proper OU settings without multiple restarts
+
+remote into computers
+	Windows
+	get IP address or computer name
+		chp-sfc-316b
+		or get IP address ping chp-sfc316b -4
+		155.247.xxx.xxx
+	remote desktop connection
+	For local admin acount
+		chp-admin
+	For domain account
+		TU\tue79412
+		
+
+Moving computers to OU
+	Active Directory Users and Computers
+	
+	If tool not showing
+	mmc
+	add AD Users and Computers
+	run application
+
+	expand cph groups
+	go to unassigned
+	find computer and move to proper group
+

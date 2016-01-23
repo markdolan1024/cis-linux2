@@ -1,0 +1,19 @@
+html,body{
+	min-height: 100%;
+	height: 100%;
+	margin: 0px;
+	color: black;
+	background:linear-gradient(#18babc, #bbbbbb);
+}
+body{
+	padding-top: 70px;
+	color: black;
+}
+
+.centerImage{
+	margin: 0 auto;
+}
+
+.mainImg{
+	width: 95%;
+}

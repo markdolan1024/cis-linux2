@@ -1,0 +1,11 @@
+#bg{
+	background:linear-gradient(#789693, #bbbbbb) no-repeat;
+}
+body{
+	padding-top: 70px;
+	color: black;
+}
+
+.centerImage{
+	margin: 0 auto;
+}

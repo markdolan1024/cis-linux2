@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css"/>
+        <link rel="stylesheet" type="text/css" href="css/mapStyle.css" />
+       
+         <!--<link rel="stylesheet" href="http://www.web-huertas.com/work/programs/ScienceTapApp/css/photoStyle.css" type="text/css" />-->
+        
+  		 
+        
+        <title>ScienceTap</title>
+      
+        <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.js"></script>
+        <script src="js/config.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.16&key=AIzaSyDELvVrnaFo_tHvb_5hzaJxzNp3aoG4VOg&libraries=places,weather" type="text/javascript"> </script>
+        <script type="text/javascript" src="phonegap.js"></script>
+    	<script>
+	   		var EmailUser = window.localStorage.getItem('Email');
+			var User_Type = window.localStorage.getItem('Usert_Type');
+			if(EmailUser == 'null'){
+				window.open("index.html", '_self', 'location=yes');
+			}	
+			
+		</script>
+       
+       
+
+    </head>
+    
+    <body>
+    
+    
+    	<div data-role="page" data-theme="a" id="pageAdmin">
+        
+        
+           <div data-role="panel" id="panelPageProject" data-display="overlay">
+        
+        	<div id="containerPanel"> 
+            	<!-- here I need to create the menu of m panels. -->
+                <div id="contLogo">
+                     <div><img src="" id="ImageUser" alt="logoTemple"></div>
+                     <div><p id="NameUser"></p></div>
+                </div>
+                <hr>
+                <div id="contMenu">
+                
+                	
+                	<ul id="menuPanel">
+                    	<li id="homeTag"><img src="Images/Home_Icon.png" alt="login Icon"> <p>Home</p></li>
+                    	<li id="dataTag"><img src="Images/addData.png" alt="login Icon"> <p>Projects</p></li>
+                      	<li id="mapTag"><img  src="Images/MapIcon.png" alt="login Icon"> <p>Map</p></li>
+                      	<li id="teamTag"><img src="Images/members_icon.png" alt="login Icon">	<p>Teams</p></li>
+                      	<!-- <li><img src="Images/Search.png" alt="login Icon"> <p>Search</p></li> -->
+                      	<li id="logoutTag"><img src="Images/logoutIcon.png" alt="logout Icon"> <p>Logout </p></li>
+                   	</ul>
+                	
+                </div>
+            
+            
+            </div>
+        		
+                
+		</div><!-- /panel -->
+        	
+        
+        
+        
+        
+        
+        
+        
+        
+        		<!-- this is my panel to search user -->
+                
+                  <div data-role="panel" id="myPanel" data-display="overlay" data-position="right">
+        
+                    <div id="listContainer"> 
+                    
+                        <!-- here I need to create the menu of m panels. -->
+                        <div id="contTitlePanel">
+                        	<div><h3><p>List of Sites:</p></h3></div>
+                        </div>
+                        
+                        <hr>
+				
+				        <div id="siteList">
+                        	<!-- This is where the sites on the map are listed -->
+                        </div>
+                        
+                    </div><!-- end containerPanel --> 
+                
+				</div><!-- /panel -->
+        	
+	
+        
+          
+                <div data-role="header" data-position="fixed" data-theme="z" id="HeaderBar" >
+                	<a href="#panelPageProject" data-ajax="false"><img src="Images/barsIcon.png" alt="iconBars"></a>
+                    <a href="#myPanel" data-ajax="false"><img src="Images/searchIconWhite.png" alt="iconSearch"></a>
+                    <div id="infoUser">
+                    	<p>Map</p>
+                    </div>
+                    
+                </div> <!-- this is the end of my header -->
+          
+          
+                <div data-role="content">
+      			
+         			  <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
+         			   
+         			  <div id="mapData"></div>
+         			   
+         			  <div id="legend">
+         			   		<h3>Legend</h3>
+         			  </div>
+         			  
+         			  	<!--<div id="slider">
+         			  	
+         			  		  <a href="#" class="control_next">>></a>
+         			  		  <a href="#" class="control_prev"><</a>
+         			  		 
+         			  		  <ul>
+         			  		  		<div id="loopImg"></div>
+         			  		  </ul> 
+         			  
+         			  		   
+         			  	</div>-->
+     
+                      	<ul id="mapButtons">
+                        	<li id="CurrentPosition"><img src="Images/Icons/CurrentPosition.png" alt="Current Icon"></li>
+                            <li id="trafficBtn">Traffic</li>
+                            <li id="weatherBtn">Weather</li>
+                        </ul>
+                      
+                           
+             	</div> <!-- this is the end of my content -->
+
+          </div> <!-- this is the end of my page -->
+          <div data-role="page" data-theme="a" id="viewPhotos">    
+           <div data-role="header" data-theme="z" data-position="fixed" id="HeaderBar" >
+               
+               <a href="map.html" data-ajax="false">
+               		<img src="Images/BackWhite.png" alt="iconBack">
+               </a>
+               <a href="map.html" data-ajax="false">
+               		<img src="Images/MapIcon.png" alt="iconSearch">
+               </a>
+               
+               <div id="infoUser">
+                	<p>Photo</p>
+               </div>
+           
+           </div> <!-- this is the end of my header -->            
+                          
+                     <div data-role="content">  				
+             				<div id="imageContainer">
+             						  	
+             					  	<!-- This is where all the photo slides are put from photo.js -->	               
+             					
+             				</div>                                
+                    	</div> <!-- this is the end of my content -->
+                      	
+                 </div> <!-- this is the end of my page -->
+                 
+          <!-- This is where pageBigPhoto page begins -->
+          <div data-role="page" data-theme="a" id="pageBigPhoto">
+                
+                     <div data-role="header" data-theme="z" data-position="fixed" id="HeaderBar" >
+                          
+                          <a href="#viewPhotos" data-ajax="false">
+                          		<img src="Images/BackWhite.png" alt="iconBack">
+                          </a>
+                          <a href="map.html" data-ajax="false">
+                          		<img src="Images/MapIcon.png" alt="iconSearch">
+                          </a>
+                          
+                          <div id="infoUser">
+                           	<p>Photo</p>
+                          </div>
+                      
+                     </div> <!-- this is the end of my header -->
+                       
+                       <div data-role="content">
+                       		
+                       		
+                       		<div id="photoCont">
+                       			<!--<div id="prevPhoto"><img src="Images/Back.png" alt="" /></div>-->
+                       			<div id="singleCont"><img id="photoSingle"></div>
+                       			<!--<div id="nextPhoto"><img src="Images/Fordward.png" alt="" /></div>-->
+	                        	<div id="infoPhoto"></div>
+	                        </div>
+	                        
+                      </div>
+          </div>
+          <!-- The end of BigPhoto page -->
+          
+       
+    </body>
+</html>
+<script>
+ 	if(User_Type == 4){
+		$('#menuPanel').append( 
+		'<li id="formsTag"><img src="Images/Icons/ListFormWhite.png" alt="login Icon"> <p>Forms</p></li>'+
+		'<li id="AdminTag"><img src="Images/adminIcon.png" alt="Admin Icon"> <p>Admin</p></li>'
+		);
+		
+		
+	}
+ </script>
+
+<script type="text/javascript" src="js/myFunctions.js"></script>
+<script src="js/map.js" type="text/javascript"></script>
+ <script src="js/photo.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/myFunctions.js"></script>
